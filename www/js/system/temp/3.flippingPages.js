@@ -22,7 +22,7 @@ if(typeof faNav === 'string'){
         $btnNext.attr('disabled', true);
     }
 
-    $('body').hammer().on('tap', '.flip-btn.prev',function(){
+    $('body').on('tap', '.flip-btn.prev',function(){
         prevAction();
     }).on('tap', '.flip-btn.next', function(){
         nextAction();

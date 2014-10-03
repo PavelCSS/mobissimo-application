@@ -55,11 +55,11 @@ $('.mobile-overlay').on('touchstart', function(){
     $('.mobile-menu, .dropdown-menu, .mobile-overlay').removeClass('open');
 });
 
-$mobileButton.hammer().on('tap', function(){
+$mobileButton.on('tap', function(){
     event.preventDefault();
     showHideMenu($(this))
 });
-$('.sub-menu-btn').hammer().on('tap', function(){
+$('.sub-menu-btn').on('tap', function(){
     event.preventDefault();
     $(this).toggleClass('active').nextAll('ul').toggleClass('open');
 });
