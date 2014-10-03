@@ -22,19 +22,15 @@ if(typeof faNav === 'string'){
         $btnNext.attr('disabled', true);
     }
 
-    $('body').on('click', '.flip-btn.prev',function(){
+    $('body').hammer().on('tap', '.flip-btn.prev',function(){
         prevAction();
-    }).on('click', '.flip-btn.next', function(){
+    }).on('tap', '.flip-btn.next', function(){
         nextAction();
+    }).on('swipeleft',function(){
+        nextAction();
+    }).on('swiperight', function(){
+        prevAction();
     });
-
-    if(device.type){
-        $('body').hammer().on('swipeleft',function(){
-            nextAction();
-        }).on('swiperight', function(){
-            prevAction();
-        });
-    }
 }
 
 function nextAction(){

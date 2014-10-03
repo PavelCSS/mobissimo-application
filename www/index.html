@@ -21,17 +21,18 @@
         <link href="css/animation.css" rel="stylesheet" media="screen">
     </head>
     <body>
-
-        <div class="app">
-            <h1>PhoneGap</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>
-
         <!-- HEADER -->
         <header>
+            <!-- Top bar for mobile, with button show/hide menu -->
+            <div class="top-block clearfix {$mobile:device:desktop=d-hide}">
+                <label data-menu="#main-menu" data-menu-position="left" class="menu-btn fl-left icon-list2 btn large">Menu</label>
+            </div>
+            <ul id="main-menu" class="main_menu mobile-menu left open">
+                <li class="category cat-1"><a title="Home" href="http://192.168.56.101/" class="current">Home</a></li>
+                <li class="category cat-2"><a title="About Us" href="http://192.168.56.101/about-us.html">About Us</a></li>
+                <li class="category cat-3"><a title="Contact" href="http://192.168.56.101/contact.html">Contact</a></li>
+                <li class="category cat-4"><a title="Service" href="http://192.168.56.101/service.html">Service</a></li>
+            </ul>
         </header>
 
         <!-- MAIN -->
@@ -45,6 +46,7 @@
 
         <!-- SCRIPTS ZONE -->
         <script src="cordova.js"></script>
+        <script src="js/plugin/hammer.js"></script>
         <script src="js/scripts.min.js"></script>
         <script src="js/system/flexkit.min.js"></script>
         <script>
