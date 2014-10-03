@@ -20,21 +20,18 @@
         <link href="css/animation.css" rel="stylesheet" media="screen">
     </head>
     <body>
-        <!-- HEADER -->
-        <header>
-        </header>
-
-        <!-- MAIN -->
-        <main>
-        </main>
-
-        <!-- FOOTER -->
-        <footer>
-        </footer>
+        <section id="page">
+            <footer class="t-column_2 m-column_2 full-width">
+                <button id="upload-photo" class="btn">Upload</button>
+                <button id="gallery" class="btn">Gallery</button>
+            </footer>
+        </section>
 
         <!-- SCRIPTS ZONE -->
         <script src="cordova.js"></script>
-        <script src="js/scripts.min.js"></script>
+        <!-- Mustache http://mustache.github.io/-->
+        <script src="js/plugin/mustache.js"></script>
+        <script src="js/scripts.js"></script>
         <script src="js/system/flexkit.min.js"></script>
         <script>
             app.initialize();

@@ -26,8 +26,14 @@ body{
 //	HEADER Style
 //==================================================
 header{
-    background : @header-bg;
-    color      : @header-color;
+    position    : fixed;
+    top         : 0;
+    left        : 0;
+    right       : 0;
+    height      : @nav-height;
+    line-height : @nav-height;
+    background  : @header-bg;
+    color       : @header-color;
 
     // -- LOGO Style
     .logo{
@@ -50,7 +56,13 @@ nav{ }
 
 //	CONTENT Style
 //==================================================
-#content{
+main{
+    position   : fixed;
+    top        : @nav-height;
+    bottom     : @nav-height;
+    left       : 0;
+    right      : 0;
+    padding    : @padding-base-vertical @padding-base-horizontal;
     background : @content-bg;
     color      : @content-color;
 }
@@ -87,10 +99,13 @@ aside{
 }
 
 footer{
-    padding    : @padding-larger-vertical * 2 0;
+    position   : fixed;
+    bottom     : 0;
+    left       : 0;
+    right      : 0;
+    height     : @nav-height;
     background : @footer-bg;
     color      : @footer-color;
-    font-size  : @font-size-small;
 
     p{ }
 
