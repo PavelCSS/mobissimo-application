@@ -57,7 +57,7 @@
             .border-radius(14px);
             .icon-size(10px; true);
 
-            &:hover{
+            &.touch{
                 background : darken(@primary-bg, 10%);
             }
 
@@ -82,7 +82,7 @@
         .icon-size(@slider-button-size; true);
         .transition();
 
-        &:hover{
+        &.touch{
             background : darken(@primary-bg, 10%);
             color      : @primary-color;
         }
@@ -108,7 +108,7 @@
         }
     }
 
-    &:hover .action-button{
+    &.touch .action-button{
         &.cycle-prev{
             left : 10px;
         }

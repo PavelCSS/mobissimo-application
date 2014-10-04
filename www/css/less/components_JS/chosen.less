@@ -107,7 +107,7 @@
             cursor  : pointer;
             padding : @padding-small-vertical @padding-small-horizontal;
 
-            &:hover, &.highlighted{
+            &.touch, &.highlighted{
                 background : @gray-lighter;
                 color      : @gray-dark;
             }
@@ -129,7 +129,7 @@
 
                 em{ text-decoration : underline; }
 
-                &:hover{ }
+                &.touch{ }
             }
 
             &.result-selected{
@@ -196,7 +196,7 @@
             font-family : 'flexkit-icons';
             content     : '\e0a2';
         }
-        &:hover{
+        &.touch{
             color : darken(@brand-error, 10%);
         }
     }

@@ -34,7 +34,7 @@
     // --------------------------------------------------
     // Inverse button appears as gray => primary
     &.inverse when (@button-color-inverse = true) and (@button-colors = true){
-        &:hover, &:active{
+        &.touch, &:active{
             color            : @button-primary-color;
             background-color : darken(@button-primary-bg, 10%);
             & when (@button-border-width > 0){
@@ -112,7 +112,7 @@
         .link-color();
         .box-shadow(none; @button-box-shadow);
 
-        &:hover{
+        &.touch{
             text-decoration : none;
         }
 
@@ -160,7 +160,7 @@
         // --------------------------------------------------
         // Inverse button appears as gray => primary
         &.inverse when (@button-color-inverse = true) and (@button-colors = true){
-            &:hover, &:active{
+            &.touch, &:active{
                 color        : @button-primary-color;
                 border-color : @button-primary-bg;
             }

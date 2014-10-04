@@ -12,7 +12,7 @@
         float    : left;
         position : relative;
 
-        &:hover ul{
+        &.touch ul{
             display : block;
         }
     }
@@ -23,7 +23,7 @@
         color     : inherit;
         font-size : 1.15em;
 
-        &:hover{
+        &.touch{
             background : @nav-bg-li-hover;
             color      : @nav-color-li-hover;
         }
@@ -52,7 +52,7 @@
 
             & a{
 
-                &:hover{
+                &.touch{
                     background : @nav-drop-down-list-bg-hover;
                     color      : @nav-drop-down-list-color-hover;
                 }

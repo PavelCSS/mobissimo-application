@@ -49,7 +49,7 @@
     .transition(all; 0.3s);
 
     a{
-        &:hover, &.current{
+        &.touch, &.current{
             background : @menu-bg-li-hover;
             color      : @menu-color-li-hover;
         }
@@ -64,7 +64,7 @@
         .box-shadow(none);
 
         a{
-            &:hover, &.current{
+            &.touch, &.current{
                 background : @menu-drop-down-list-bg-hover;
                 color      : @menu-drop-down-list-color-hover;
             }
@@ -126,7 +126,7 @@
     color : @primary-color;
     .rgba(#000, .1);
 
-    &:hover, &.active{
+    &.touch, &.active{
         .rgba(#000, .2);
     }
 }

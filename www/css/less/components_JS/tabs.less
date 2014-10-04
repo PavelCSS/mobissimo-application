@@ -25,12 +25,12 @@
             border       : 1px solid @tabs-nav-li-border;
             border-width : 1px 1px 0;
 
-            &.ui-tabs-active, &:hover{
+            &.ui-tabs-active, &.touch{
                 margin-top       : 0;
                 border-top-width : 3px;
             }
 
-            &:hover{
+            &.touch{
                 background   : @tabs-nav-li-bg-hover;
                 border-color : @tabs-nav-li-border-hover;
 
@@ -87,7 +87,7 @@
                 margin       : 0 -1px -1px 2px;
                 border-width : 1px 0 1px 1px;
 
-                &.ui-tabs-active, &:hover{
+                &.ui-tabs-active, &.touch{
                     margin-left       : 0px;
                     border-left-width : 3px;
                 }
@@ -120,7 +120,7 @@
                     border-left : 3px solid @brand-primary;
                 }
 
-                &:hover{
+                &.touch{
                     a{
                         background : lighten(@tabs-bg, 7%);
                         color      : #fff;
@@ -157,7 +157,7 @@
                         border-top : 3px solid @brand-primary;
                     }
 
-                    &.ui-tabs-active, &:hover{
+                    &.ui-tabs-active, &.touch{
                     }
                 }
             }

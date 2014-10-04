@@ -32,12 +32,12 @@
 
 // Button size
 //==================================================
-// Easily pump out default styles, as well as :hover, :focus, :active,
+// Easily pump out default styles, as well as .touch, :focus, :active,
 // and disabled options for all buttons
 .link-color(@color : @link-color; @color-hover : darken(@color, 30%)) {
     color : @color;
 
-    &:hover{
+    &.touch{
         color : @color-hover;
     }
 }
@@ -54,7 +54,7 @@
     border-color     : extract(@border, 1);
     background-color : extract(@background, 1);
 
-    &:hover, &:active, &.active{
+    &.touch, &:active, &.active{
         & when (length(@color) = 1){
             color : @color2;
         }

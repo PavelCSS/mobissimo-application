@@ -72,12 +72,12 @@ table{
         zoom : 1;
 
         thead, tfoot{
-            tr:hover{
+            tr.touch{
                 background : inherit !important;
             }
         }
 
-        tr:hover{
+        tr.touch{
             background-color : @table-row-bg-hover !important;
 
             &.primary when (@colors = true){

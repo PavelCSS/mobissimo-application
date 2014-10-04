@@ -1,18 +1,3 @@
-var pageTmpl =
-    '{{#header}}' +
-        '<header>' +
-            '<button id="back" class="btn fl-left icon-arrow-left">Back</button>{{{header.code}}}' +
-        '</header>' +
-    '{{/header}}' +
-    '{{#main}}' +
-        '<main>{{{main.code}}}</main>' +
-    '{{/main}}' +
-    '{{#footer}}' +
-        '<footer>{{{footer.code}}}</footer>' +
-    '{{/footer}}';
-
-var homeTmpl;
-
 var app = {
     // Application Constructor
     initialize: function() {
@@ -24,18 +9,23 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+        document.addEventListener('backbutton', this.onBack, false);
     },
     // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        homeTmpl = $('section').html();
+        parseTemplate(false, '_home.htm');
+    },
+
+    onBack: function() {
+        parseTemplate(false, '_home.htm');
     }
 };
 $('body').on('tap', '#gallery', function () {
-    var page_data, rendered;
-    page_data = {
+    var gallery_data = {
+        'page-name' : 'gallery',
         'header': {
             'code': 'Header title'
         },
@@ -44,10 +34,52 @@ $('body').on('tap', '#gallery', function () {
         },
         'footer   ': false
     };
-    rendered = Mustache.to_html(pageTmpl, page_data);
-    $('section').html(rendered);
-})
-.on('tap', '#back', function () {
-    console.log(homeTmpl);
-    $('section').html(homeTmpl);
+    parseTemplate(gallery_data, '_page.htm');
+}).on('click', '#upload-photo', function(){
+    var upload_data = {
+            'page-name' : 'upload',
+            'header': false,
+            'main' :{
+                'class' : 'gray-lighter-bg',
+                'code': '<img id="preview" class="polaroid-images" src="images/upload-image.png">'
+            },
+            'footer': {
+                'class' : 't-column_2 m-column_2 text-center mt30px mb30px',
+                'code':
+                    '<span>' +
+                        '<button id="take-photo" class="btn fs48 rounded icon icon-pictures3 outline-bg">Gallery</button>' +
+                        '<span class="block">Take photo</span>' +
+                    '</span>' +
+                    '<span>' +
+                        '<button id="select-photo" class="btn fs48 rounded icon icon-folder-upload2 outline-bg">Upload</button>' +
+                        '<span class="block">Select photo</span>' +
+                    '</span>'
+            }
+        };
+    parseTemplate(upload_data, '_page.htm');
+}).on('click', '#take-photo', function(){
+    navigator.camera.getPicture(onSuccess, onFail, {
+        quality         : 50,
+        destinationType : Camera.DestinationType.DATA_URL
+    });
+
+    function onSuccess(imageData) {
+        var image = document.getElementById('preview');
+        image.src = "data:image/jpeg;base64," + imageData;
+    }
+
+    function onFail(message) {
+        alert('Failed because: ' + message);
+    }
 });
+
+function parseTemplate(json, tmpl){
+    $.get(tmpl, function(response){
+        if(json){
+            var html = Mustache.to_html(response, json);
+            $('section').replaceWith(html);
+        }else{
+            $('section').replaceWith(response);
+        }
+    });
+}

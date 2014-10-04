@@ -65,7 +65,7 @@
 .inherit-color{
     color : inherit;
 
-    a&:hover{
+    a&.touch{
         color : @link-color;
     }
 }
@@ -86,8 +86,8 @@
 .margin-list(0px);
 .margin-list(30px; top);
 .margin-list(30px; bottom);
-.margin-list(none; right);
-.margin-list(none; left);
+.margin-list(30px; right);
+.margin-list(30px; left);
 
 .ml-grid{ margin-left : @grid-margin-width / 2 !important; }
 .mr-grid{ margin-right : @grid-margin-width / 2 !important; }

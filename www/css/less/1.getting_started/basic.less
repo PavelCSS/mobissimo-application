@@ -11,26 +11,28 @@
 
 //	PAGE Style
 //==================================================
-html, body{
-    height : 100%
-}
-html{ }
-body{
-    background      : @body-bg;
-    background-size : contain;
-    color           : @text-color;
-}
+section{
+    .flexbox();
+    height : 100%;
 
-#container{ }
+    &#home{
+        height          : 100%;
+        background      : url('../images/mobissimo-bg.jpg') 50% -75px no-repeat;
+        background-size : contain;
+        .flex-direction(row);
+
+        main{
+            margin-bottom : 15%;
+            text-align    : center;
+            .flex-box-align(flex-end);
+        }
+    }
+}
 
 //	HEADER Style
 //==================================================
 header{
-    position    : fixed;
-    top         : 0;
-    left        : 0;
-    right       : 0;
-    height      : @nav-height;
+    min-height  : @nav-height;
     line-height : @nav-height;
     background  : @header-bg;
     color       : @header-color;
@@ -57,27 +59,26 @@ nav{ }
 //	CONTENT Style
 //==================================================
 main{
-    position   : fixed;
-    top        : @nav-height;
-    bottom     : @nav-height;
-    left       : 0;
-    right      : 0;
-    padding    : @padding-base-vertical @padding-base-horizontal;
-    background : @content-bg;
-    color      : @content-color;
+    .flex-box-size(1);
+    position : relative;
+    padding  : @padding-base-vertical @padding-base-horizontal;
 }
 
-// -- 404 Page Style
-.page404{
-    padding : 1em 0 3em;
-    color   : @gray-dark;
-
-    .first{
-        text-align   : center;
-        font-size    : 17em;
-        line-height  : 1;
-        border-right : 1px solid @gray-light;
-    }
+.polaroid-images{
+    position            : absolute;
+    left                : 0;
+    top                 : 0;
+    bottom              : 0;
+    right               : 0;
+    margin              : auto;
+    max-height          : 95%;
+    max-width           : 95%;
+    background          : #000;
+    -webkit-box-shadow  : 0 4px 6px rgba(0, 0, 0, .3);
+    -moz-box-shadow     : 0 4px 6px rgba(0, 0, 0, .3);
+    box-shadow          : 0 4px 6px rgba(0, 0, 0, .3);
+    border              : 15px solid #fff;
+    border-bottom-width : 50px;
 }
 
 //	SIDEBAR Style
@@ -99,11 +100,7 @@ aside{
 }
 
 footer{
-    position   : fixed;
-    bottom     : 0;
-    left       : 0;
-    right      : 0;
-    height     : @nav-height;
+    min-height : @nav-height;
     background : @footer-bg;
     color      : @footer-color;
 

@@ -1,5 +1,4 @@
 @import "1.getting_started/2-variables";
-
 // Table of Content
 //==================================================
 //	Reset & Basics
@@ -7,7 +6,6 @@
 //	Grid system
 //  Reset for all navigation items, related-products
 //==================================================
-
 @import "systems/normalize";
 
 // Reset & Basics
@@ -30,14 +28,22 @@
     color      : @text-select-color;
 }
 
+html, body{
+    height : 100%
+}
+
 body{
+    font-size                   : @font-size-base;
+    font-family                 : @font-family-text;
+    line-height                 : @line-height;
+    background                  : @body-bg;
+    color                       : @text-color;
     //-webkit-font-smoothing      : antialiased; // Fix for webkit rendering
     -webkit-font-smoothing      : subpixel-antialiased !important;
     -webkit-backface-visibility : hidden;
     -moz-backface-visibility    : visible;
     -ms-backface-visibility     : hidden;
     -ms-touch-action            : manipulation;
-    touch-action                : manipulation;
 }
 blockquote, q{
     quotes : none;
