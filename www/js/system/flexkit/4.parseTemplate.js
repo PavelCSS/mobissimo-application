@@ -1,4 +1,5 @@
 function parseTemplate(json, tmpl, selector, replace){
+    $('html').addClass('loading');
     selector = (typeof selector == 'undefined') ? 'section' : selector;
     replace = (typeof replace == 'undefined') ? true : replace;
     $.get(tmpl, function(response){
@@ -17,4 +18,5 @@ function insertTemplate(html, selector, replace){
     }else{
         $(selector).html(html);
     }
+    $('html').removeClass('loading');
 }
