@@ -84,7 +84,7 @@ $('body').on('tap', '#gallery', function () {
         'footer   ': false
     };
     parseTemplate(gallery_data, '_page.htm');
-}).on('click', '#upload-photo', function(){
+}).on('tap', '#upload-photo', function(){
     var upload_data = {
             'page-name' : 'upload',
             'header': false,
@@ -106,7 +106,7 @@ $('body').on('tap', '#gallery', function () {
             }
         };
     parseTemplate(upload_data, '_page.htm');
-}).on('click', '#take-photo', function(){
+}).on('tap', '#take-photo', function(){
     navigator.camera.getPicture(onSuccess, onFail, {
         quality         : 80,
         destinationType : Camera.DestinationType.FILE_URI
@@ -126,4 +126,63 @@ $('body').on('tap', '#gallery', function () {
     function onFail(message) {
         alert('Failed because: ' + message);
     }
+}).on('tap', '#select-photo', function(){
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, fail);
 });
+function onFileSystemSuccess(fileSystem) {
+//    alert(fileSystem);
+//    alert(fileSystem.name);
+//    alert(fileSystem.root);
+    listDir(fileSystem.root);
+}
+
+function fail(evt) {
+    alert(evt.target.error.code);
+}
+/* show the content of a directory */
+function listDir(directoryEntry){
+    alert(directoryEntry);
+    if( !directoryEntry.isDirectory ) alert('listDir incorrect type');
+    $.mobile.showPageLoadingMsg(); // show loading message
+
+    currentDir = directoryEntry; // set current directory
+    alert('currentDir = ' + currentDir);
+    directoryEntry.getParent(function(par){ // success get parent
+        parentDir = par; // set parent directory
+        alert('parentDir = ' + parentDir);
+        if( (parentDir.name == 'sdcard' && currentDir.name != 'sdcard') || parentDir.name != 'sdcard' ) $('#backBtn').show();
+    }, function(error){ // error get parent
+        alert('Get parent error: '+error.code);
+    });
+
+    var directoryReader = directoryEntry.createReader();
+    alert('directoryReader = ' + directoryReader);
+    directoryReader.readEntries(function(entries){
+        var dirContent = $('#dirContent');
+        dirContent.empty();
+
+        var dirArr = new Array();
+        var fileArr = new Array();
+        for(var i=0; i<entries.length; ++i){ // sort entries
+            var entry = entries[i];
+            if( entry.isDirectory && entry.name[0] != '.' ) dirArr.push(entry);
+            else if( entry.isFile && entry.name[0] != '.' ) fileArr.push(entry);
+        }
+
+        var sortedArr = dirArr.concat(fileArr); // sorted entries
+        var uiBlock = ['a','b','c','d'];
+
+        for(var i=0; i<sortedArr.length; ++i){ // show directories
+            var entry = sortedArr[i];
+            var blockLetter = uiBlock[i%4];
+            //console.log(entry.name);
+            if( entry.isDirectory )
+                dirContent.append('<div class="ui-block-'+blockLetter+'"><div class="folder"><p>'+entry.name+'</p></div></div>');
+            else if( entry.isFile )
+                dirContent.append('<div class="ui-block-'+blockLetter+'"><div class="file"><p>'+entry.name+'</p></div></div>');
+        }
+        $.mobile.hidePageLoadingMsg(); // hide loading message
+    }, function(error){
+        alert('listDir readEntries error: '+error.code);
+    });
+}
