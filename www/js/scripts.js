@@ -1,28 +1,14 @@
-var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-        document.addEventListener('backbutton', this.onBack, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        parseTemplate(false, '_home.htm');
-    },
+document.addEventListener('deviceready', onDeviceReady, false);
+document.addEventListener('backbutton', onBack, false);
 
-    onBack: function() {
-        parseTemplate(false, '_home.htm');
-    }
-};
+function onDeviceReady(){
+    parseTemplate(false, '_home.htm');
+}
+
+function onBack(){
+    parseTemplate(false, '_home.htm');
+}
+
 $('body').on('tap', '#gallery', function () {
     var gallery_data = {
         'page-name' : 'gallery',
@@ -123,36 +109,16 @@ $('body').on('tap', '#gallery', function () {
 }).on('click', '#take-photo', function(){
     navigator.camera.getPicture(onSuccess, onFail, {
         quality         : 80,
-        destinationType : Camera.DestinationType.DATA_URL,
-        saveToPhotoAlbum: true
+        destinationType : Camera.DestinationType.FILE_URI
     });
 
-    function onSuccess(imageData) {
+    function onSuccess(imageURI) {
+        alert(imageURI)
         var image = document.getElementById('preview');
-        image.src = "data:image/jpeg;base64," + imageData;
+        image.src = imageURI;
     }
 
     function onFail(message) {
         alert('Failed because: ' + message);
     }
 });
-
-function parseTemplate(json, tmpl, selector, replace){
-    selector = (typeof selector == 'undefined') ? 'section' : selector;
-    replace = (typeof replace == 'undefined') ? true : replace;
-    $.get(tmpl, function(response){
-        if(json){
-            var html = Mustache.to_html(response, json);
-            insertTemplate(html, selector, replace);
-        }else{
-            insertTemplate(response, selector, replace);
-        }
-    });
-}
-function insertTemplate(html, selector, replace){
-    if(replace){
-        $(selector).replaceWith(html);
-    }else{
-        $(selector).html(html);
-    }
-}

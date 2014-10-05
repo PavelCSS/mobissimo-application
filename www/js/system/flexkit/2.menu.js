@@ -1,38 +1,9 @@
-// Call functions for touch devices
-$('body').on('touchstart', function(e){
-        $(e.target).addClass('touch')
-    }).on('touchend touchmove', function(e){
-        $('*').removeClass('touch')
-    });
-tableResponsive();    // Responsive table
-
-// Function calls
-//======================================================
-
-///////// Responsive table /////////
-function tableResponsive(){
-    $('table.responsive').each(function(){
-        var $tableTr = $('tr', this);
-        var $tableTh = $('th', this);
-        var allHeadersSaved = new Array();
-
-        $tableTh.each(function(){
-            var headerContent = $(this).text();
-            allHeadersSaved.push(headerContent);
-        });
-
-        $.each(allHeadersSaved, function(i, v){
-            $tableTr.find('td:eq('+i+')').prepend('<span class="table-head">'+v+'</span>');
-        });
-    });
-}
-
-if(document.getElementsByClassName('menu-btn').length){
+if(document.querySelector('menu-btn').length){
     var menuOverlay = document.createElement("div");
     menuOverlay.className = "mobile-overlay menu-overlay";
     document.body.appendChild(menuOverlay);
 }
-if(document.getElementsByClassName('dropdown-btn').length){
+if(document.querySelector('dropdown-btn').length){
     var dropdownOverlay = document.createElement("div");
     dropdownOverlay.className = "mobile-overlay dropdown-overlay";
     document.body.appendChild(dropdownOverlay);
