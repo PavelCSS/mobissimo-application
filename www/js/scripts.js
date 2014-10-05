@@ -112,6 +112,11 @@ $('body').on('tap', '#gallery', function () {
         destinationType : Camera.DestinationType.FILE_URI
     });
 
+//    function onSuccess(imageData) {
+//        var image = document.getElementById('preview');
+//        image.src = "data:image/jpeg;base64," + imageData;
+//    }
+
     function onSuccess(imageURI) {
         alert(imageURI)
         var image = document.getElementById('preview');
