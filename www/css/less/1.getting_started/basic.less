@@ -13,19 +13,13 @@
 //==================================================
 section{
     .flexbox();
-    height : 100%;
+    height          : 100%;
+    background      : url('../images/carpathian-87319_1280.jpg') 50% 50% no-repeat;
+    background-size : cover;
 
-    &#home{
-        height          : 100%;
-        background      : url('../images/mobissimo-bg.jpg') 50% -75px no-repeat;
-        background-size : contain;
-        .flex-direction(row);
-
-        main{
-            margin-bottom : 15%;
-            text-align    : center;
-            .flex-box-align(flex-end);
-        }
+    & > *{
+        position : relative;
+        z-index  : 10;
     }
 }
 
@@ -36,6 +30,10 @@ header{
     line-height : @nav-height;
     background  : @header-bg;
     color       : @header-color;
+
+    #home &{
+        background : none;
+    }
 
     // -- LOGO Style
     .logo{
@@ -60,25 +58,9 @@ nav{ }
 //==================================================
 main{
     .flex-box-size(1);
+    overflow : auto;
     position : relative;
     padding  : @padding-base-vertical @padding-base-horizontal;
-}
-
-.polaroid-images{
-    position            : absolute;
-    left                : 0;
-    top                 : 0;
-    bottom              : 0;
-    right               : 0;
-    margin              : auto;
-    max-height          : 95%;
-    max-width           : 95%;
-    background          : #000;
-    -webkit-box-shadow  : 0 4px 6px rgba(0, 0, 0, .3);
-    -moz-box-shadow     : 0 4px 6px rgba(0, 0, 0, .3);
-    box-shadow          : 0 4px 6px rgba(0, 0, 0, .3);
-    border              : 15px solid #fff;
-    border-bottom-width : 50px;
 }
 
 //	SIDEBAR Style

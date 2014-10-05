@@ -1,4 +1,5 @@
 @import "1.getting_started/2-variables";
+
 // Table of Content
 //==================================================
 //	Reset & Basics
@@ -6,6 +7,7 @@
 //	Grid system
 //  Reset for all navigation items, related-products
 //==================================================
+
 @import "systems/normalize";
 
 // Reset & Basics
@@ -29,7 +31,8 @@
 }
 
 html, body{
-    height : 100%
+    overflow : hidden;
+    height   : 100%
 }
 
 body{
@@ -44,6 +47,7 @@ body{
     -moz-backface-visibility    : visible;
     -ms-backface-visibility     : hidden;
     -ms-touch-action            : manipulation;
+    touch-action                : manipulation;
 }
 blockquote, q{
     quotes : none;
