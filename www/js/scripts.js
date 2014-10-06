@@ -1,3 +1,5 @@
+var backLinks = [];
+
 document.addEventListener('deviceready', onDeviceReady, false);
 document.addEventListener('backbutton', onBack, false);
 
@@ -9,7 +11,25 @@ function onBack(){
     parseTemplate(false, '_home.htm');
 }
 
-$('body').on('tap', '#gallery', function () {
+$('body')
+    .on('tap', '#gallery', _pageGallery)
+    .on('tap', '#upload-photo', _pageUpload)
+    .on('tap', '#take-photo', function(){
+        addPhoto(true, true, function(url){
+            var image = document.getElementById('preview');
+            image.src = url;
+        });
+    }).on('tap', '#select-photo', function(){
+        addPhoto(false, false, function(url){
+            var image = document.getElementById('preview');
+            image.src = url;
+            CordovaExif.readData(url, function(exifObject) {
+                alert(exifObject);
+            });
+        });
+    });
+
+function _pageGallery() {
     var gallery_data = {
         'page-name' : 'gallery',
         'header': {
@@ -87,7 +107,9 @@ $('body').on('tap', '#gallery', function () {
         'footer   ': false
     };
     parseTemplate(gallery_data, '_page.htm');
-}).on('tap', '#upload-photo', function(){
+}
+
+function _pageUpload(){
     var upload_data = {
         'page-name' : 'upload',
         'header': false,
@@ -101,22 +123,12 @@ $('body').on('tap', '#gallery', function () {
                 '<span>' +
                     '<button id="take-photo" class="btn fs48 rounded icon icon-camera outline-bg">Gallery</button>' +
                     '<span class="block">Take photo</span>' +
-                '</span>' +
-                '<span>' +
+                    '</span>' +
+                    '<span>' +
                     '<button id="select-photo" class="btn fs48 rounded icon icon-pictures3 outline-bg">Upload</button>' +
                     '<span class="block">Select photo</span>' +
-                '</span>'
+                    '</span>'
         }
     };
     parseTemplate(upload_data, '_page.htm');
-}).on('tap', '#take-photo', function(){
-    addPhoto(true, true, function(url){
-        var image = document.getElementById('preview');
-            image.src = url;
-    });
-}).on('tap', '#select-photo', function(){
-    addPhoto(true, false, function(url){
-        var image = document.getElementById('preview');
-        image.src = url;
-    });
-});
+}
