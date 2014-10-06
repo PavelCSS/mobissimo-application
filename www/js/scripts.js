@@ -18,8 +18,11 @@ $('body').on('tap', '#gallery', function () {
         'main' :{
             'code': function(){
                 var gall_list = {
-                    'items' : [
+                    'images' : [
                         {
+                            title : 'dfdfds',
+                            lan : '42',
+                            lng : '85',
                             url : 'images/siq-2986_1280.jpg'
                         },
                         {
@@ -86,52 +89,28 @@ $('body').on('tap', '#gallery', function () {
     parseTemplate(gallery_data, '_page.htm');
 }).on('tap', '#upload-photo', function(){
     var upload_data = {
-            'page-name' : 'upload',
-            'header': false,
-            'main' :{
-                'class' : '',
-                'code': '<img id="preview" class="img-polaroid" src="images/upload-image.png">'
-            },
-            'footer': {
-                'class' : 't-column_2 m-column_2 text-center mt30px mb30px',
-                'code':
-                    '<span>' +
-                        '<button id="take-photo" class="btn fs48 rounded icon icon-camera outline-bg">Gallery</button>' +
-                        '<span class="block">Take photo</span>' +
-                    '</span>' +
-                    '<span>' +
-                        '<button id="select-photo" class="btn fs48 rounded icon icon-pictures3 outline-bg">Upload</button>' +
-                        '<span class="block">Select photo</span>' +
-                    '</span>'
-            }
-        };
+        'page-name' : 'upload',
+        'header': false,
+        'main' :{
+            'class' : '',
+            'code': '<img id="preview" class="img-polaroid" src="images/upload-image.png">'
+        },
+        'footer': {
+            'class' : 't-column_2 m-column_2 text-center mt30px mb30px',
+            'code':
+                '<span>' +
+                    '<button id="take-photo" class="btn fs48 rounded icon icon-camera outline-bg">Gallery</button>' +
+                    '<span class="block">Take photo</span>' +
+                '</span>' +
+                '<span>' +
+                    '<button id="select-photo" class="btn fs48 rounded icon icon-pictures3 outline-bg">Upload</button>' +
+                    '<span class="block">Select photo</span>' +
+                '</span>'
+        }
+    };
     parseTemplate(upload_data, '_page.htm');
 }).on('tap', '#take-photo', function(){
-    $('html').addClass('loading');
-    navigator.camera.getPicture(onSuccessImage, onFailImage, {
-        quality         : 80,
-        destinationType : Camera.DestinationType.DATA_URL,
-//        destinationType : Camera.DestinationType.FILE_URL,
-        sourceType      : Camera.PictureSourceType.CAMERA
-    });
+    addPhoto(true, true)
 }).on('tap', '#select-photo', function(){
-    $('html').addClass('loading');
-    navigator.camera.getPicture(onSuccessImage, onFailImage, {
-        quality         : 80,
-        destinationType : Camera.DestinationType.DATA_URL,
-//        destinationType : Camera.DestinationType.FILE_URL,
-        sourceType      : Camera.PictureSourceType.PHOTOLIBRARY,
-        mediaType       : Camera.MediaType.PICTURE
-    });
+    addPhoto(true, false)
 });
-
-function onSuccessImage(imageData){
-    var image = document.getElementById('preview');
-    image.src = "data:image/jpeg;base64,"+imageData;
-    $('html').removeClass('loading');
-}
-
-function onFailImage(message){
-    $('html').removeClass('loading');
-    console.log('Failed because: '+message);
-}
