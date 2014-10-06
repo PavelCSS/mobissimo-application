@@ -1,50 +1,44 @@
-var backLinks = [];
+var backLinks = [], currentImage;
 
 document.addEventListener('deviceready', onDeviceReady, false);
 document.addEventListener('backbutton', onBack, false);
 
 function onDeviceReady(){
+    backLinks.push("parseTemplate(false, '_home.htm')");
     parseTemplate(false, '_home.htm');
 }
 
 function onBack(){
-    parseTemplate(false, '_home.htm');
+    var length = backLinks.length;
+    eval('('+backLinks[length - 2]+')');
+    backLinks = backLinks.slice(0, length - 1);
 }
 
 $('body')
     .on('tap', '#gallery', _pageGallery)
     .on('tap', '#upload-photo', _pageUpload)
+    .on('tap', '#gallery-list a', function(){
+        currentImage = {
+            'href' : $(this).data('href'),
+            'title' : $(this).attr('title')
+        };
+        _pagePreview();
+    })
     .on('tap', '#take-photo', function(){
         addPhoto(true, true, function(url){
             var image = document.getElementById('preview');
             image.src = url;
         });
-    }).on('tap', '#select-photo', function(){
+    })
+    .on('tap', '#select-photo', function(){
         addPhoto(false, false, function(url){
             var image = document.getElementById('preview');
             image.src = url;
-            window.resolveLocalFileSystemURL(url,
-                function(entry) {
-                    alert(entry);
-                    entry.file(function(file) {
-                        alert(file);
-                        EXIF.getData(file, function() {
-                            var datetime = EXIF.getTag(this, "DateTimeOriginal");
-                            alert(datetime);
-                        });
-
-                        // do something useful....
-
-                    }, standardErrorHandler);
-                },
-                function(e) {
-                    alert('Unexpected error obtaining image file.');
-                    standardErrorHandler(e);
-                });
         });
     });
 
 function _pageGallery() {
+    backLinks.push("_pageGallery()");
     var gallery_data = {
         'page-name' : 'gallery',
         'header': {
@@ -55,61 +49,62 @@ function _pageGallery() {
                 var gall_list = {
                     'images' : [
                         {
-                            title : 'dfdfds',
+                            title : 'Image first',
                             lan : '42',
                             lng : '85',
-                            url : 'images/siq-2986_1280.jpg'
+                            url : 'images/siq-2986_1280.jpg',
+                            tags : 'image, tag, travel'
+                        },
+                        {
+                            url : 'images/carpathian-87319_1280.jpg'
                         },
                         {
                             url : 'images/siq-2986_1280.jpg'
                         },
                         {
-                            url : 'images/siq-2986_1280.jpg'
+                            url : 'images/carpathian-87319_1280.jpg'
                         },
                         {
                             url : 'images/siq-2986_1280.jpg'
                         },
                         {
-                            url : 'images/siq-2986_1280.jpg'
+                            url : 'images/carpathian-87319_1280.jpg'
                         },
                         {
                             url : 'images/siq-2986_1280.jpg'
                         },
                         {
-                            url : 'images/siq-2986_1280.jpg'
+                            url : 'images/carpathian-87319_1280.jpg'
                         },
                         {
                             url : 'images/siq-2986_1280.jpg'
                         },
                         {
-                            url : 'images/siq-2986_1280.jpg'
+                            url : 'images/carpathian-87319_1280.jpg'
                         },
                         {
                             url : 'images/siq-2986_1280.jpg'
                         },
                         {
-                            url : 'images/siq-2986_1280.jpg'
+                            url : 'images/carpathian-87319_1280.jpg'
                         },
                         {
                             url : 'images/siq-2986_1280.jpg'
                         },
                         {
-                            url : 'images/siq-2986_1280.jpg'
+                            url : 'images/carpathian-87319_1280.jpg'
                         },
                         {
                             url : 'images/siq-2986_1280.jpg'
                         },
                         {
-                            url : 'images/siq-2986_1280.jpg'
+                            url : 'images/carpathian-87319_1280.jpg'
                         },
                         {
                             url : 'images/siq-2986_1280.jpg'
                         },
                         {
-                            url : 'images/siq-2986_1280.jpg'
-                        },
-                        {
-                            url : 'images/siq-2986_1280.jpg'
+                            url : 'images/carpathian-87319_1280.jpg'
                         },
                         {
                             url : 'images/siq-2986_1280.jpg'
@@ -125,6 +120,7 @@ function _pageGallery() {
 }
 
 function _pageUpload(){
+    backLinks.push("_pageUpload()");
     var upload_data = {
         'page-name' : 'upload',
         'header': false,
@@ -142,7 +138,26 @@ function _pageUpload(){
                     '<span>' +
                     '<button id="select-photo" class="btn fs48 rounded icon icon-pictures3 outline-bg">Upload</button>' +
                     '<span class="block">Select photo</span>' +
-                    '</span>'
+                '</span>'
+        }
+    };
+    parseTemplate(upload_data, '_page.htm');
+}
+
+function _pagePreview(){
+    backLinks.push("_pagePreview()");
+    var upload_data = {
+        'page-name' : 'preview',
+        'header'    : {
+            'code' : currentImage.title
+        },
+        'main'      : {
+            'code' : '<div><img src="' + currentImage.href + '" alt="' + currentImage.title + '"></div>'
+        },
+        'footer'    : {
+            'class' : 't-column_2 m-column_2 text-center',
+            'code' : '<button id="edit-photo" class="btn icon-pencil3">Edit</button>' +
+                     '<button id="save-photo" class="btn icon-cd">Save</button>'
         }
     };
     parseTemplate(upload_data, '_page.htm');

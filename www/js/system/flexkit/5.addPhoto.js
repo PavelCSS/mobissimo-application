@@ -1,13 +1,13 @@
 var typeAdd, callBack;
 function addPhoto(type, source, callback){
     showLoading();
-    type = (typeof type !== 'undefined' && type) ? 'DATA_URL' : 'NATIVE_URI';
+    type = (typeof type !== 'undefined' && type) ? 'DATA_URL' : 'FILE_URL';
     source = (typeof source !== 'undefined' && source) ? 'CAMERA' : 'PHOTOLIBRARY';
     callBack = (typeof callback == 'function') ? callback : '';
     typeAdd = type;
     navigator.camera.getPicture(onSuccessImage, onFailImage, {
         quality         : 80,
-        destinationType : type == 'DATA_URL' ? Camera.DestinationType.DATA_URL : Camera.DestinationType.NATIVE_URI,
+        destinationType : type == 'DATA_URL' ? Camera.DestinationType.DATA_URL : Camera.DestinationType.FILE_URL,
         sourceType      : source == 'CAMERA' ? Camera.PictureSourceType.CAMERA : Camera.PictureSourceType.PHOTOLIBRARY,
         mediaType       : Camera.MediaType.PICTURE
     });
