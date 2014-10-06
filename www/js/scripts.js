@@ -23,9 +23,22 @@ $('body')
         addPhoto(false, false, function(url){
             var image = document.getElementById('preview');
             image.src = url;
-            CordovaExif.readData(url, function(exifObject) {
-                alert(exifObject);
-            });
+            window.resolveLocalFileSystemURL(url,
+                function(entry) {
+                    entry.file(function(file) {
+                        EXIF.getData(file, function() {
+                            var datetime = EXIF.getTag(this, "DateTimeOriginal");
+                            alert(datetime);
+                        });
+
+                        // do something useful....
+
+                    }, standardErrorHandler);
+                },
+                function(e) {
+                    alert('Unexpected error obtaining image file.');
+                    standardErrorHandler(e);
+                });
         });
     });
 
