@@ -1,9 +1,10 @@
-var typeAdd;
-function addPhoto(type, source){
+var typeAdd, callBack;
+function addPhoto(type, source, callback){
+    showLoading();
     type = (typeof type !== 'undefined' && type) ? 'DATA_URL' : 'FILE_URL';
     source = (typeof source !== 'undefined' && source) ? 'CAMERA' : 'PHOTOLIBRARY';
+    callBack = (typeof callback == 'function') ? callback : '';
     typeAdd = type;
-    $('html').addClass('loading');
     navigator.camera.getPicture(onSuccessImage, onFailImage, {
         quality         : 80,
         destinationType : type == 'DATA_URL' ? Camera.DestinationType.DATA_URL : Camera.DestinationType.FILE_URL,
@@ -13,16 +14,17 @@ function addPhoto(type, source){
 }
 
 function onSuccessImage(imageData){
-    var image = document.getElementById('preview');
+    var url;
     if(typeAdd == 'DATA_URL'){
-        image.src = "data:image/jpeg;base64,"+imageData;
+        url = "data:image/jpeg;base64,"+imageData;
     }else{
-        image.src = imageData;
+        url = imageData;
     }
-    $('html').removeClass('loading');
+    hideLoading();
+    callBack(url);
 }
 
 function onFailImage(message){
-    $('html').removeClass('loading');
+    hideLoading();
     console.log('Failed because: '+message);
 }

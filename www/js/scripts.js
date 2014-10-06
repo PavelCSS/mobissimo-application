@@ -110,7 +110,13 @@ $('body').on('tap', '#gallery', function () {
     };
     parseTemplate(upload_data, '_page.htm');
 }).on('tap', '#take-photo', function(){
-    addPhoto(true, true)
+    addPhoto(true, true, function(url){
+        var image = document.getElementById('preview');
+            image.src = url;
+    });
 }).on('tap', '#select-photo', function(){
-    addPhoto(true, false)
+    addPhoto(true, false, function(url){
+        var image = document.getElementById('preview');
+        image.src = url;
+    });
 });
