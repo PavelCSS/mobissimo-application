@@ -25,7 +25,9 @@ $('body')
             image.src = url;
             window.resolveLocalFileSystemURL(url,
                 function(entry) {
+                    alert(entry);
                     entry.file(function(file) {
+                        alert(file);
                         EXIF.getData(file, function() {
                             var datetime = EXIF.getTag(this, "DateTimeOriginal");
                             alert(datetime);
