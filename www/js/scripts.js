@@ -15,6 +15,7 @@ function onBack(){
 }
 
 $('body')
+    .on('tap', '#back', onBack)
     .on('tap', '#gallery', _pageGallery)
     .on('tap', '#upload-photo', _pageUpload)
     .on('tap', '#gallery-list a', function(){
@@ -26,25 +27,34 @@ $('body')
     })
     .on('tap', '#take-photo', function(){
         addPhoto(false, true, function(url){
-            var image = document.getElementById('preview');
-            image.src = url;
-            uploadPhoto(url);
+            editPhoto(url);
         });
     })
     .on('tap', '#select-photo', function(){
         addPhoto(false, false, function(url){
-            var image = document.getElementById('preview');
-            image.src = url;
-            uploadPhoto(url);
+            editPhoto(url);
         });
+    })
+    .on('tap', '#save-photo', function(){
+        uploadPhoto(currentImage.href);
     });
+
+function editPhoto(url){
+    var image = document.getElementById('preview');
+    image.src = url;
+    currentImage = {
+        'href' : url,
+        'title' : ''
+    };
+    _pagePreview();
+}
 
 function _pageGallery() {
     backLinks.push("_pageGallery()");
     var gallery_data = {
         'page-name' : 'gallery',
         'header': {
-            'code': 'Mobbisimo gallery'
+            'code': '<button id="back" class="btn icon icon-arrow-left6 fl-left">Back</button> Mobbisimo gallery'
         },
         'main' :{
             'code': function(){
@@ -154,8 +164,8 @@ function _pageUpload(){
                 '<span>' +
                     '<button id="take-photo" class="btn fs48 rounded icon icon-camera outline-bg">Gallery</button>' +
                     '<span class="block">Take photo</span>' +
-                    '</span>' +
-                    '<span>' +
+                '</span>' +
+                '<span>' +
                     '<button id="select-photo" class="btn fs48 rounded icon icon-pictures3 outline-bg">Upload</button>' +
                     '<span class="block">Select photo</span>' +
                 '</span>'
@@ -169,7 +179,7 @@ function _pagePreview(){
     var upload_data = {
         'page-name' : 'preview',
         'header'    : {
-            'code' : currentImage.title
+            'code' : '<button id="back" class="btn icon icon-arrow-left6 fl-left">Back</button> Edit image'
         },
         'main'      : {
             'code' : '<div><img src="' + currentImage.href + '" alt="' + currentImage.title + '"></div>'
