@@ -1,11 +1,11 @@
-<ul id="gallery-list" class="img_gallery t-column_3 m-column_2 full-width">
+<ul id="gallery-list" class="img_gallery masonry">
 {{#images}}
     <li>
-        <a class="responsive-image _16x9" href="javascript:;" data-href="{{url}}" title="{{title}}">
+        <a href="javascript:;" data-href="{{url}}" title="{{title}}">
             <img src="{{url}}" width="150" alt="{{title}}">
         </a>
         {{#title}}
-        <span class="image_caption">{{title}}</span>
+        <span class="image_caption hidden">{{title}}</span>
         {{/title}}
     </li>
 {{/images}}

@@ -12,16 +12,16 @@ function uploadPhoto(imageURI) {
     options.chunkedMode = false;
 
     var ft = new FileTransfer();
-    ft.upload(imageURI + '.jpg', "http://192.168.1.143:3000/upload", successUpload, failUpload, options);
+    ft.upload(imageURI, "http://192.168.1.143:3000/upload", successUpload, failUpload, options);
 }
 
 function successUpload(r) {
-    alert("Code = " + r.responseCode);
+    console.log("Code = " + r.responseCode);
     console.log("Response = " + r.response);
     console.log("Sent = " + r.bytesSent);
     console.log(r.response);
 }
 
 function failUpload(error) {
-    alert("An error has occurred: Code = " + error.code);
+    console.log("An error has occurred: Code = " + error.code);
 }

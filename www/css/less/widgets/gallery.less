@@ -1,15 +1,17 @@
 .img_gallery when (@widget-gallery = true){
-    margin : 10px 0;
+    //    margin : 10px 0;
     .inline-block-wrap(middle; li);
 
     li{
         position   : relative;
-        margin     : 5px;
+        margin     : 1px;
         text-align : center;
     }
 
     a{
+
         img{
+            width : 100%;
             .thumbnail-state();
         }
     }
@@ -22,6 +24,11 @@
         z-index  : 10;
         margin   : 0;
         .text-overflow;
+    }
+
+    &.masonry{
+        .content-columns(3);
+        .column-gap(0);
     }
 }
 
