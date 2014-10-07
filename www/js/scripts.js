@@ -62,71 +62,71 @@ function _pageGallery() {
                         },
                         {
                             title : 'Image first',
-                            url : 'images/siq.jpg'
+                            url : 'http://img0.joyreactor.com/pics/post/full/girl-beer-alcohol-nsfw-1501747.jpeg'
                         },
                         {
                             title : 'Image first',
-                            url : 'images/carpathian.jpg'
+                            url : 'http://i.huffpost.com/gen/1412462/thumbs/o-KID-BEER-CLEVELAND-FOOTBALL-facebook.jpg'
                         },
                         {
                             title : 'Image first',
-                            url : 'images/siq.jpg'
+                            url : 'http://www.libertynews.com/wp-content/uploads/2013/06/beer-1.jpg'
                         },
                         {
                             title : 'Image first',
-                            url : 'images/carpathian.jpg'
+                            url : 'http://www.freakingnews.com/pictures/54000/Volcanic-Glass-of-Beer--54060.jpg'
                         },
                         {
                             title : 'Image first',
-                            url : 'images/siq.jpg'
+                            url : 'http://s3.amazonaws.com/bbpa-prod/attachments/target/hero_image/21735/original/Beer%20Pouring.jpg?1350980553'
                         },
                         {
                             title : 'Image first',
-                            url : 'images/carpathian.jpg'
+                            url : 'http://cdn.trendhunterstatic.com/thumbs/buckler-beer-print-ads.jpeg'
                         },
                         {
                             title : 'Image first',
-                            url : 'images/siq.jpg'
+                            url : 'http://www.mnn.com/sites/default/files/editorial/beer_10.jpg'
                         },
                         {
                             title : 'Image first',
-                            url : 'images/carpathian.jpg'
+                            url : 'http://www.bottomsupbeer.com/img/beer.png'
                         },
                         {
                             title : 'Image first',
-                            url : 'images/siq.jpg'
+                            url : 'http://www.hdwallpaperscool.com/wp-content/uploads/2014/05/beer-awesome-hd-wallpaper.jpg'
                         },
                         {
                             title : 'Image first',
-                            url : 'images/carpathian.jpg'
+                            url : 'http://saxerbeer.com/wp-content/uploads/2014/08/beer-been-poured-into-glass-studio-shot-ultraf.jpg'
                         },
                         {
                             title : 'Image first',
-                            url : 'images/siq.jpg'
+                            url : 'http://discovermagazine.com/~/media/Images/Issues/2013/June/beer.jpg'
                         },
                         {
                             title : 'Image first',
-                            url : 'images/carpathian.jpg'
+                            url : 'http://cbw.ge/wp-content/uploads/2014/09/bus-11.jpg'
                         },
                         {
                             title : 'Image first',
-                            url : 'images/siq.jpg'
+                            url : 'http://bikebusbeer.files.wordpress.com/2011/07/beer-display-credit-mike-beningo.jpg'
                         },
                         {
                             title : 'Image first',
-                            url : 'images/carpathian.jpg'
+                            url : 'http://www.outsidethebeltway.com/wp-content/uploads/2012/04/toast-beer.jpg'
                         },
                         {
                             title : 'Image first',
-                            url : 'images/siq.jpg'
+                            url : 'http://snowbrains.com/wp-content/uploads/2013/09/Why-Beer-Is-Good-For-You.jpg'
                         },
                         {
                             title : 'Image first',
-                            url : 'images/carpathian.jpg'
+                            url : 'http://i.telegraph.co.uk/multimedia/archive/01793/ginger-beer_1793863b.jpg'
                         },
                         {
                             title : 'Image first',
-                            url : 'images/siq.jpg'
+                            url : 'http://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/rich_media_quiz/topic/rmq_beer_calories/getty_rf_photo_of_group_beer_toast.jpg'
                         }
                     ]
                 };
