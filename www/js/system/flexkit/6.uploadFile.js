@@ -12,7 +12,7 @@ function uploadPhoto(imageURI) {
     options.chunkedMode = false;
 
     var ft = new FileTransfer();
-    ft.upload(imageURI+'.jpg', "http://192.168.1.143:3000/upload", successUpload, failUpload, options);
+    ft.upload(imageURI, "http://192.168.1.143:3000/upload", successUpload, failUpload, options);
 }
 
 function successUpload(r) {
@@ -23,5 +23,5 @@ function successUpload(r) {
 }
 
 function failUpload(error) {
-    console.log("An error has occurred: Code = " + error.code);
+    alert("An error has occurred: Code = " + error.code);
 }
