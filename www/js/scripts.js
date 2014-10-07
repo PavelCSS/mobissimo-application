@@ -25,7 +25,7 @@ $('body')
         _pagePreview();
     })
     .on('tap', '#take-photo', function(){
-        addPhoto(true, true, function(url){
+        addPhoto(false, true, function(url){
             var image = document.getElementById('preview');
             image.src = url;
             uploadPhoto(url);
