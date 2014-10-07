@@ -12,11 +12,11 @@ function uploadPhoto(imageURI) {
     options.chunkedMode = false;
 
     var ft = new FileTransfer();
-    ft.upload(imageURI, "http://192.168.1.143:3000/upload", successUpload, failUpload, options);
+    ft.upload(imageURI+'.jpg', "http://192.168.1.143:3000/upload", successUpload, failUpload, options);
 }
 
 function successUpload(r) {
-    console.log("Code = " + r.responseCode);
+    alert("Code = " + r.responseCode);
     console.log("Response = " + r.response);
     console.log("Sent = " + r.bytesSent);
     console.log(r.response);
