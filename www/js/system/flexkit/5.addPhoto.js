@@ -18,7 +18,7 @@ function onSuccessImage(imageData){
     if(typeAdd == 'DATA_URL'){
         url = "data:image/jpeg;base64,"+imageData;
     }else{
-        url = imageData;
+        url = imageData + '.jpg';
     }
     hideLoading();
     callBack(url);

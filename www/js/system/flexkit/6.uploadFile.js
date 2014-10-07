@@ -16,12 +16,12 @@ function uploadPhoto(imageURI) {
 }
 
 function successUpload(r) {
-    alert("Code = " + r.responseCode);
-    alert("Response = " + r.response);
-    alert("Sent = " + r.bytesSent);
-    alert(r.response);
+    console.log("Code = " + r.responseCode);
+    console.log("Response = " + r.response);
+    console.log("Sent = " + r.bytesSent);
+    console.log(r.response);
 }
 
 function failUpload(error) {
-    alert("An error has occurred: Code = " + error.code);
+    console.log("An error has occurred: Code = " + error.code);
 }
