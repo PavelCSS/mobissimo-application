@@ -28,6 +28,7 @@ $('body')
         addPhoto(true, true, function(url){
             var image = document.getElementById('preview');
             image.src = url;
+            uploadPhoto(url);
         });
     })
     .on('tap', '#select-photo', function(){
