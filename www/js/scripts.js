@@ -34,6 +34,7 @@ $('body')
         addPhoto(false, false, function(url){
             var image = document.getElementById('preview');
             image.src = url;
+            uploadPhoto(url);
         });
     });
 
@@ -52,62 +53,80 @@ function _pageGallery() {
                             title : 'Image first',
                             lan : '42',
                             lng : '85',
-                            url : 'images/siq-2986_1280.jpg',
+                            url : 'images/siq.jpg',
                             tags : 'image, tag, travel'
                         },
                         {
-                            url : 'images/carpathian-87319_1280.jpg'
+                            title : 'Image first',
+                            url : 'images/carpathian.jpg'
                         },
                         {
-                            url : 'images/siq-2986_1280.jpg'
+                            title : 'Image first',
+                            url : 'images/siq.jpg'
                         },
                         {
-                            url : 'images/carpathian-87319_1280.jpg'
+                            title : 'Image first',
+                            url : 'images/carpathian.jpg'
                         },
                         {
-                            url : 'images/siq-2986_1280.jpg'
+                            title : 'Image first',
+                            url : 'images/siq.jpg'
                         },
                         {
-                            url : 'images/carpathian-87319_1280.jpg'
+                            title : 'Image first',
+                            url : 'images/carpathian.jpg'
                         },
                         {
-                            url : 'images/siq-2986_1280.jpg'
+                            title : 'Image first',
+                            url : 'images/siq.jpg'
                         },
                         {
-                            url : 'images/carpathian-87319_1280.jpg'
+                            title : 'Image first',
+                            url : 'images/carpathian.jpg'
                         },
                         {
-                            url : 'images/siq-2986_1280.jpg'
+                            title : 'Image first',
+                            url : 'images/siq.jpg'
                         },
                         {
-                            url : 'images/carpathian-87319_1280.jpg'
+                            title : 'Image first',
+                            url : 'images/carpathian.jpg'
                         },
                         {
-                            url : 'images/siq-2986_1280.jpg'
+                            title : 'Image first',
+                            url : 'images/siq.jpg'
                         },
                         {
-                            url : 'images/carpathian-87319_1280.jpg'
+                            title : 'Image first',
+                            url : 'images/carpathian.jpg'
                         },
                         {
-                            url : 'images/siq-2986_1280.jpg'
+                            title : 'Image first',
+                            url : 'images/siq.jpg'
                         },
                         {
-                            url : 'images/carpathian-87319_1280.jpg'
+                            title : 'Image first',
+                            url : 'images/carpathian.jpg'
                         },
                         {
-                            url : 'images/siq-2986_1280.jpg'
+                            title : 'Image first',
+                            url : 'images/siq.jpg'
                         },
                         {
-                            url : 'images/carpathian-87319_1280.jpg'
+                            title : 'Image first',
+                            url : 'images/carpathian.jpg'
                         },
                         {
-                            url : 'images/siq-2986_1280.jpg'
+                            title : 'Image first',
+                            url : 'images/siq.jpg'
                         },
                         {
-                            url : 'images/carpathian-87319_1280.jpg'
+                            title : 'Image first',
+                            url : 'images/carpathian.jpg'
                         },
                         {
-                            url : 'images/siq-2986_1280.jpg'
+                            title : 'Image first',
+                            url : 'images/siq.jpg'
                         }
                     ]
                 };

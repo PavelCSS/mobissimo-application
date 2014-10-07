@@ -12,13 +12,13 @@ function uploadPhoto(imageURI) {
     options.chunkedMode = false;
 
     var ft = new FileTransfer();
-    ft.upload(imageURI, "http://yourdomain.com/upload.php", successUpload, failUpload, options);
+    ft.upload(imageURI, "http://192.168.1.143:3000/upload", successUpload, failUpload, options);
 }
 
 function successUpload(r) {
-    console.log("Code = " + r.responseCode);
-    console.log("Response = " + r.response);
-    console.log("Sent = " + r.bytesSent);
+    alert("Code = " + r.responseCode);
+    alert("Response = " + r.response);
+    alert("Sent = " + r.bytesSent);
     alert(r.response);
 }
 
