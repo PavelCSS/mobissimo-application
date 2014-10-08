@@ -6,7 +6,7 @@ document.addEventListener('backbutton', onBack, false);
 function onDeviceReady(){
     backLinks.push("parseTemplate(false, '_home.htm')");
     parseTemplate(false, '_home.htm');
-    navigator.splashscreen.hide();
+//    navigator.splashscreen.hide();
         startTest();
 }
 
@@ -116,13 +116,14 @@ function _pagePreview(){
 }
 
 function startTest() {
-    $('body').imagesLoaded(function($images, $proper, $broken ) {
+    imagesLoaded($('body'), function($images, $proper, $broken ) {
         alert('dfdsfds');
 
         // see console output for debug info
         ImgCache.options.debug = true;
         ImgCache.options.usePersistentCache = true;
 
+        alert($proper);
         ImgCache.init(function() {
             // 1. cache images
             for (var i = 0; i < $proper.length; i++) {
