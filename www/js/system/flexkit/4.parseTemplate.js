@@ -1,22 +1,12 @@
-function parseTemplate(json, tmpl, selector, replace){
-    $('html').addClass('loading');
-    selector = (typeof selector == 'undefined') ? 'section' : selector;
-    replace = (typeof replace == 'undefined') ? true : replace;
+var parseCallBack;
+function parseTemplate(json, tmpl, callback){
+    callback = (typeof callback == 'function') ? callback : function(html){$('section').replaceWith(html);};
     $.get(tmpl, function(response){
         if(json){
             var html = Mustache.to_html(response, json);
-            insertTemplate(html, selector, replace);
+            callback(html);
         }else{
-            insertTemplate(response, selector, replace);
+            callback(response);
         }
     });
-}
-
-function insertTemplate(html, selector, replace){
-    if(replace){
-        $(selector).replaceWith(html);
-    }else{
-        $(selector).html(html);
-    }
-    $('html').removeClass('loading');
 }
