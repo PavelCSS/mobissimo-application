@@ -1,9 +1,9 @@
-if(document.querySelector('menu-btn').length){
+if(document.querySelector('.menu-btn').length){
     var menuOverlay = document.createElement("div");
     menuOverlay.className = "mobile-overlay menu-overlay";
     document.body.appendChild(menuOverlay);
 }
-if(document.querySelector('dropdown-btn').length){
+if(document.querySelector('.dropdown-btn').length){
     var dropdownOverlay = document.createElement("div");
     dropdownOverlay.className = "mobile-overlay dropdown-overlay";
     document.body.appendChild(dropdownOverlay);

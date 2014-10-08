@@ -27,8 +27,16 @@
     }
 
     &.masonry{
-        .content-columns(3);
-        .column-gap(0);
+        .flexbox(@direction : row;@wrap : wrap;);
+
+        li{
+            height : 150px;
+
+            img{
+                width      : auto;
+                max-height : 100%;
+            }
+        }
     }
 }
 
