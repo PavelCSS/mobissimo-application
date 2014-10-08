@@ -13,15 +13,7 @@ function onDeviceReady(){
     ImgCache.options.debug = true;
     ImgCache.options.usePersistentCache = true;
     ImgCache.options.localCacheFolder = 'mobissimoCache';
-    ImgCache.init(function(){
-        alert('ImgCache init: success!');
-
-        // from within this function you're now able to call other ImgCache methods
-        // or you can wait for the ImgCacheReady event
-
-    }, function(){
-        alert('ImgCache init: error! Check the log for errors');
-    });
+    ImgCache.init();
 
     parseTemplate(false, '_home.htm');
 
