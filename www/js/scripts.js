@@ -62,7 +62,6 @@ function _pageGallery() {
             'code': function(){
                 $.getJSON('http://192.168.1.143:3000/getjson', function(gall_list){
                     parseTemplate(gall_list, '_gallery list.htm', 'main', false);
-                    startTest();
                 });
             }
         },
@@ -117,14 +116,13 @@ function _pagePreview(){
 
 function startTest() {
     imagesLoaded($('body'), function($images, $proper, $broken ) {
-        alert('dfdsfds');
 
         // see console output for debug info
         ImgCache.options.debug = true;
         ImgCache.options.usePersistentCache = true;
 
-        alert($proper);
         ImgCache.init(function() {
+            alert($images+','+$proper+','+$broken);
             // 1. cache images
             for (var i = 0; i < $proper.length; i++) {
                 ImgCache.cacheFile($($proper[i]).attr('src'));
@@ -137,3 +135,4 @@ function startTest() {
         });
     });
 }
+
