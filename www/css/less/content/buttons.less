@@ -70,6 +70,18 @@
         border-color     : @gray-light;
     }
 
+    // Inherit button appears as transparent bg => primary color
+    &.inherit{
+        padding          : 0;
+        color            : #fff;
+        background-color : transparent;
+        border-color     : transparent;
+
+        &.touch{
+            color : @brand-primary;
+        }
+    }
+
     // Block button
     // --------------------------------------------------
     &.block when (@button-type-block = true) and (@button-types = true){

@@ -1,11 +1,11 @@
 <ul id="gallery-list" class="img_gallery t-column_3 m-column_2 full-width">
 {{#images}}
     <li>
-        <a class="responsive-image _4x3" href="javascript:;" data-href="{{url}}" title="{{title}}">
-            <img src="{{url}}" width="150" alt="{{title}}">
+        <a class="responsive-image _4x3" href="javascript:;" data-href="{{protocol}}{{ip}}:{{port}}/{{path_original}}" title="{{name}}">
+            <img src="{{protocol}}{{ip}}:{{port}}/{{path_original}}" width="150" alt="{{name}}">
         </a>
         {{#title}}
-        <span class="image_caption hidden">{{title}}</span>
+        <span class="image_caption">{{name}}</span>
         {{/title}}
     </li>
 {{/images}}

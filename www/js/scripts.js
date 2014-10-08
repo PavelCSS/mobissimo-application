@@ -6,6 +6,7 @@ document.addEventListener('backbutton', onBack, false);
 function onDeviceReady(){
     backLinks.push("parseTemplate(false, '_home.htm')");
     parseTemplate(false, '_home.htm');
+    navigator.splashscreen.hide();
 }
 
 function onBack(){
@@ -54,94 +55,13 @@ function _pageGallery() {
     var gallery_data = {
         'page-name' : 'gallery',
         'header': {
-            'code': '<button id="back" class="btn icon icon-arrow-left6 fl-left">Back</button> Mobbisimo gallery'
+            'code': '<button id="back" class="btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> Mobbisimo gallery</button>'
         },
         'main' :{
             'code': function(){
-                var gall_list = {
-                    'images' : [
-                        {
-                            title : 'Image first',
-                            lan : '42',
-                            lng : '85',
-                            url : 'images/siq.jpg',
-                            tags : 'image, tag, travel'
-                        },
-                        {
-                            title : 'Image first',
-                            url : 'images/carpathian.jpg'
-                        },
-                        {
-                            title : 'Image first',
-                            url : 'images/siq.jpg'
-                        },
-                        {
-                            title : 'Image first',
-                            url : 'images/carpathian.jpg'
-                        },
-                        {
-                            title : 'Image first',
-                            url : 'images/siq.jpg'
-                        },
-                        {
-                            title : 'Image first',
-                            url : 'images/carpathian.jpg'
-                        },
-                        {
-                            title : 'Image first',
-                            url : 'images/siq.jpg'
-                        },
-                        {
-                            title : 'Image first',
-                            url : 'images/carpathian.jpg'
-                        },
-                        {
-                            title : 'Image first',
-                            url : 'images/siq.jpg'
-                        },
-                        {
-                            title : 'Image first',
-                            url : 'images/carpathian.jpg'
-                        },
-                        {
-                            title : 'Image first',
-                            url : 'images/siq.jpg'
-                        },
-                        {
-                            title : 'Image first',
-                            url : 'images/carpathian.jpg'
-                        },
-                        {
-                            title : 'Image first',
-                            url : 'images/siq.jpg'
-                        },
-                        {
-                            title : 'Image first',
-                            url : 'images/carpathian.jpg'
-                        },
-                        {
-                            title : 'Image first',
-                            url : 'images/siq.jpg'
-                        },
-                        {
-                            title : 'Image first',
-                            url : 'images/carpathian.jpg'
-                        },
-                        {
-                            title : 'Image first',
-                            url : 'images/siq.jpg'
-                        },
-                        {
-                            title : 'Image first',
-                            url : 'images/carpathian.jpg'
-                        },
-                        {
-                            title : 'Image first',
-                            url : 'images/siq.jpg'
-                        }
-                    ]
-                };
-                parseTemplate(gall_list, '_gallery list.htm', 'main', false);
+                $.getJSON('http://192.168.1.143:3000/getjson', function(gall_list){
+                    parseTemplate(gall_list, '_gallery list.htm', 'main', false);
+                });
             }
         },
         'footer   ': false
@@ -179,7 +99,7 @@ function _pagePreview(){
     var upload_data = {
         'page-name' : 'preview',
         'header'    : {
-            'code' : '<button id="back" class="btn icon icon-arrow-left6 fl-left">Back</button> Edit image'
+            'code' : '<button id="back" class="btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> Edit image</button>'
         },
         'main'      : {
             'code' : '<div><img src="' + currentImage.href + '" alt="' + currentImage.title + '"></div>'

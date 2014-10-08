@@ -6,11 +6,12 @@ function addPhoto(type, source, callback){
     callBack = (typeof callback == 'function') ? callback : '';
     typeAdd = type;
     navigator.camera.getPicture(onSuccessImage, onFailImage, {
-        quality         : 80,
-        encodingType    : Camera.EncodingType.JPEG,
-        destinationType : type == 'DATA_URL' ? Camera.DestinationType.DATA_URL : Camera.DestinationType.FILE_URI,
-        sourceType      : source == 'CAMERA' ? Camera.PictureSourceType.CAMERA : Camera.PictureSourceType.PHOTOLIBRARY,
-        mediaType       : Camera.MediaType.PICTURE
+        quality          : 80,
+        encodingType     : 0,
+        destinationType  : type=='DATA_URL' ? 0 : 1,
+        sourceType       : source=='CAMERA' ? 1 : 0,
+        mediaType        : 0
+//        saveToPhotoAlbum : true
     });
 }
 
