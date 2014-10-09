@@ -9,7 +9,7 @@ $(function(){
 function onDeviceReady(){
     backLinks.push("parseTemplate(false, '_home.htm')");
     parseTemplate(false, '_home.htm');
-    navigator.splashscreen.show();
+    navigator.splashscreen.hide();
 }
 
 function onBack(){
@@ -24,6 +24,7 @@ $('body')
     .on('tap', '#gallery', _pageGallery)
     .on('tap', '#upload-photo', _pageUpload)
     .on('tap', '#gallery-list a', function(){
+        navigator.splashscreen.show();
         currentImage = {
             'href' : $(this).data('href'),
             'title' : $(this).attr('title')
