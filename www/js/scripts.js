@@ -8,16 +8,8 @@ $(function(){
 
 function onDeviceReady(){
     backLinks.push("parseTemplate(false, '_home.htm')");
-
-    // see console output for debug info
-    ImgCache.options.debug = true;
-    ImgCache.options.usePersistentCache = true;
-    ImgCache.options.localCacheFolder = 'mobissimoCache';
-    ImgCache.init();
-
     parseTemplate(false, '_home.htm');
-
-//    navigator.splashscreen.hide();
+    navigator.splashscreen.show();
 }
 
 function onBack(){
@@ -26,13 +18,14 @@ function onBack(){
     backLinks = backLinks.slice(0, length - 1);
 }
 
+
 $('body')
     .on('tap', '#back', onBack)
     .on('tap', '#gallery', _pageGallery)
     .on('tap', '#upload-photo', _pageUpload)
     .on('tap', '#gallery-list a', function(){
         currentImage = {
-            'href' : $('img', this).attr('src'),
+            'href' : $(this).data('href'),
             'title' : $(this).attr('title')
         };
         _pagePreview();
@@ -73,13 +66,13 @@ function _pageGallery(){
     };
     parseTemplate(gallery_data, '_page.htm', function(code){
         $('section').replaceWith(code);
-        //                $.getJSON('http://192.168.1.143:3000/getjson', function(gall_list){
-        var gall_list = {};
-        parseTemplate(gall_list, '_gallery list.htm', function(html){
-            $('main').html(html);
-            caching();
+        $.getJSON('http://192.168.1.143:3000/getjson', function(gall_list){
+            showLoading();
+            parseTemplate(gall_list, '_gallery list.htm', function(html){
+                $('main').html(html);
+                imageLoading();
+            });
         });
-        //                });
     });
 }
 
@@ -111,6 +104,7 @@ function _pageUpload(){
 }
 
 function _pagePreview(){
+    showLoading();
     backLinks.push("_pagePreview()");
     console.log(currentImage.href);
     var upload_data = {
@@ -128,42 +122,24 @@ function _pagePreview(){
         }
     };
     parseTemplate(upload_data, '_page.htm');
+    imageLoading();
 }
 
-function caching() {
-    var imgLoad = imagesLoaded('body');
-    imgLoad.on('progress', function() {
-
-        // detect which image is broken
-        for ( var i = 0, len = imgLoad.images.length; i < len; i++ ) {
-            var image = imgLoad.images[i],
-                imageTarget = $(image.img),
-                imageSrc = image.img.src;
-
-            // 1. cache images
-            if (image.isLoaded) {
-                ImgCache.isCached(imageSrc, function(path, success){
-                    console.log(success)
-                    if(success){
-                        // already cached
-                        ImgCache.useCachedFile(imageTarget);
-                    } else {
-                        console.log(imageSrc)
-                        // not there, need to cache the image
-                        ImgCache.cacheFile(imageSrc, function(){
-                            ImgCache.useCachedFile(imageTarget);
-                        });
-                    }
-                });
-            }
-            // 2. broken images get replaced
-            if (!image.isLoaded) {
-                ImgCache.useCachedFile(image.img.src);
-            }
-        }
-    }).on( 'fail', function( instance ) {
-        console.log('FAIL - all images loaded, at least one is broken');
-    }).on( 'done', function( instance, image ) {
-        console.log('DONE  - all images have been successfully loaded');
-    });
+function imageLoading() {
+            hideLoading();
+//    var imgLoad = imagesLoaded('body');
+//    imgLoad.on('progress', function() {
+//
+//        // detect which image is broken
+//        for ( var i = 0, len = imgLoad.images.length; i < len; i++ ) {
+//            var image = imgLoad.images[i],
+//                imageTarget = $(image.img),
+//                imageSrc = image.img.src;
+//        }
+//    }).on( 'fail', function( instance ) {
+//        console.log('FAIL - all images loaded, at least one is broken');
+//    }).on( 'done', function( instance, image ) {
+//        hideLoading();
+//        console.log('DONE  - all images have been successfully loaded');
+//    });
 }
