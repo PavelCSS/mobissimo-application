@@ -9,6 +9,13 @@ $(function(){
 function onDeviceReady(){
     backLinks.push("parseTemplate(false, '_home.htm')");
     parseTemplate(false, '_home.htm');
+
+    // see console output for debug info
+    ImgCache.options.debug = true;
+    ImgCache.options.usePersistentCache = true;
+    ImgCache.options.localCacheFolder = 'mobissimoCache';
+    ImgCache.init();
+
     navigator.splashscreen.hide();
 }
 
@@ -122,20 +129,47 @@ function _pagePreview(){
 }
 
 function imageLoading() {
-            hideLoading();
-//    var imgLoad = imagesLoaded('body');
-//    imgLoad.on('progress', function() {
-//
-//        // detect which image is broken
-//        for ( var i = 0, len = imgLoad.images.length; i < len; i++ ) {
-//            var image = imgLoad.images[i],
-//                imageTarget = $(image.img),
-//                imageSrc = image.img.src;
-//        }
-//    }).on( 'fail', function( instance ) {
-//        console.log('FAIL - all images loaded, at least one is broken');
-//    }).on( 'done', function( instance, image ) {
+    hideLoading();
+    var imgLoad = imagesLoaded('body');
+    imgLoad.on('progress', function() {
+    }).on( 'fail', function( instance ) {
+        console.log('FAIL - all images loaded, at least one is broken');
+    }).on( 'done', function( instance, image ) {
 //        hideLoading();
-//        console.log('DONE  - all images have been successfully loaded');
-//    });
+        console.log('rerewre' + instance.images.length);
+
+        // detect which image is broken
+        for ( var i = 0, len = instance.images.length; i < len; i++ ) {
+            var image = instance.images[i],
+                imageTarget = $(image.img),
+                imageSrc = image.img.src;
+
+//            ImgCache.isCached(imageSrc, function(path, success){
+                console.log(imageSrc)
+                ImgCache.cacheFile(imageSrc);
+//            });
+
+//            // 1. cache images
+//            if (image.isLoaded) {
+//                ImgCache.isCached(imageSrc, function(path, success){
+//                    console.log(success)
+//                    if(success){
+//                        // already cached
+//                        ImgCache.useCachedFile(imageTarget);
+//                    } else {
+//                        console.log(imageSrc)
+//                        // not there, need to cache the image
+//                        ImgCache.cacheFile(imageSrc, function(){
+//                            ImgCache.useCachedFile(imageTarget);
+//                        });
+//                    }
+//                });
+//            }
+//            // 2. broken images get replaced
+//            if (!image.isLoaded) {
+//                ImgCache.useCachedFile(image.img.src);
+//            }
+        }
+        console.log('DONE  - all images have been successfully loaded');
+    });
 }

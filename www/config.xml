@@ -9,7 +9,7 @@
     </author>
 
     <preference name="phonegap-version"           value="3.5.0" />          <!-- all: current version of PhoneGap -->
-    <preference name="orientation"                value="default" />        <!-- all: default means both landscape and portrait are enabled -->
+    <preference name="orientation"                value="portrait" />       <!-- all: default means both landscape and portrait are enabled -->
     <preference name="target-device"              value="universal" />      <!-- all: possible values handset, tablet, or universal -->
     <preference name="fullscreen"                 value="true" />           <!-- all: hides the status bar at the top of the screen -->
     <preference name="webviewbounce"              value="true" />           <!-- ios: control whether the screen 'bounces' when scrolled beyond the top -->
@@ -27,9 +27,21 @@
     <preference name="SplashScreenDelay"          value="10000" />
     <preference name="CameraUsesGeolocation"      value="true" />
 
-    <feature name="SplashScreen">
-        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+    <feature name="Device">
+        <param name="ios-package" value="CDVDevice" />
+        <param name="android-package" value="org.apache.cordova.device.Device" />
     </feature>
+    <feature name="File">
+        <param name="ios-package" value="CDVFile" />
+        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+    </feature>
+    <feature name="FileTransfer">
+        <param name="ios-package" value="CDVFileTransfer" />
+        <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
+    </feature>
+    <feature name="http://api.phonegap.com/1.0/file"/>
+    <feature name="http://api.phonegap.com/1.0/device"/>
+    <feature name="http://api.phonegap.com/1.0/network"/>
 
     <gap:plugin name="org.apache.cordova.camera" />
     <gap:plugin name="org.apache.cordova.device" />
