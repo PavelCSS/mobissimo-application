@@ -1,4 +1,3 @@
-var parseCallBack;
 function parseTemplate(json, tmpl, callback){
     callback = (typeof callback == 'function') ? callback : function(html){$('section').replaceWith(html);};
     $.get(tmpl, function(response){

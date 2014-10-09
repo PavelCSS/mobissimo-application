@@ -24,7 +24,6 @@ $('body')
     .on('tap', '#gallery', _pageGallery)
     .on('tap', '#upload-photo', _pageUpload)
     .on('tap', '#gallery-list a', function(){
-        navigator.splashscreen.show();
         currentImage = {
             'href' : $(this).data('href'),
             'title' : $(this).attr('title')
@@ -60,6 +59,7 @@ function _pageGallery(){
     var gallery_data = {
         'page-name' : 'gallery',
         'header'    : {
+            'class' : 'fixed',
             'code' : '<button id="back" class="btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> Mobbisimo gallery</button>'
         },
         'main'      : 'Loading',
@@ -82,23 +82,17 @@ function _pageUpload(){
     var upload_data = {
         'page-name' : 'upload',
         'header'    : {
-            'code' : '<button id="back" class="btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> Add new image</button>'
+            'class' : 'fixed',
+            'code'  : '<button id="back" class="btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> Add new image</button>'
         },
         'main'      :{
             'class' : '',
             'code'  : '<img id="preview" src="images/upload-image.png">'
         },
         'footer'    : {
-            'class' : 't-column_2 m-column_2 text-center mt30px mb30px',
-            'code'  :
-                '<span>' +
-                    '<button id="take-photo" class="btn fs48 rounded icon icon-camera outline-bg">Gallery</button>' +
-                    '<span class="block">Take photo</span>' +
-                '</span>' +
-                '<span>' +
-                    '<button id="select-photo" class="btn fs48 rounded icon icon-pictures3 outline-bg">Select photo</button>' +
-                    '<span class="block">Select photo</span>' +
-                '</span>'
+            'class' : 'fixed t-column_2 m-column_2 text-center',
+            'code'  : '<button id="take-photo" class="btn outline-bg"><i class="icon-camera icon24"></i> Take photo</button>' +
+                      '<button id="select-photo" class="btn outline-bg"><i class="icon-pictures3 icon24"></i> Select photo</button>'
         }
     };
     parseTemplate(upload_data, '_page.htm');
@@ -111,15 +105,16 @@ function _pagePreview(){
     var upload_data = {
         'page-name' : 'preview',
         'header'    : {
-            'code' : '<button id="back" class="btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> Edit image</button>'
+            'class' : 'fixed',
+            'code'  : '<button id="back" class="btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> Edit image</button>'
         },
         'main'      : {
-            'code' : '<div><img src="' + currentImage.href + '" alt="' + currentImage.title + '"></div>'
+            'code' : '<img src="'+currentImage.href+'" alt="'+currentImage.title+'">'
         },
         'footer'    : {
-            'class' : 't-column_2 m-column_2 text-center',
-            'code'  : '<button id="edit-photo" class="btn icon-pencil3">Edit</button>' +
-                      '<button id="save-photo" class="btn icon-cd">Save</button>'
+            'class' : 'fixed t-column_2 m-column_2 text-center',
+            'code'  : '<button id="edit-photo" class="btn icon-pencil3 outline-bg">Edit</button>'+
+                      '<button id="save-photo" class="btn icon-cd outline-bg">Save</button>'
         }
     };
     parseTemplate(upload_data, '_page.htm');
