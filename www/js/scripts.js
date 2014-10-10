@@ -7,6 +7,10 @@ function onDeviceReady(){
     backLinks.push("parseTemplate(false, '_home.htm')");
     parseTemplate(false, '_home.htm');
     navigator.splashscreen.hide();
+
+    $$('body').on('pinch', 'img', function(o) {
+        console.log(o);
+    });
 }
 
 function onBack(){
@@ -67,7 +71,7 @@ function _pageGallery(){
             showLoading();
             parseTemplate(gall_list, '_gallery list.htm', function(html){
                 $('main').html(html);
-                imageLoading();
+                hideLoading();
             });
         });
     });
@@ -87,8 +91,8 @@ function _pageUpload(){
         },
         'footer'    : {
             'class' : 'fixed t-column_2 m-column_2 text-center',
-            'code'  : '<button id="take-photo" class="btn outline-bg"><i class="icon-camera icon24"></i> Take photo</button>' +
-                      '<button id="select-photo" class="btn outline-bg"><i class="icon-pictures3 icon24"></i> Select photo</button>'
+            'code'  : '<button id="take-photo" class="btn"><i class="icon-camera icon24"></i> Take photo</button>' +
+                      '<button id="select-photo" class="btn"><i class="icon-pictures3 icon24"></i> Select photo</button>'
         }
     };
     parseTemplate(upload_data, '_page.htm');
@@ -97,13 +101,13 @@ function _pageUpload(){
 function _pagePreview(){
     showLoading();
     backLinks.push("_pagePreview()");
-    console.log(currentImage.href);
     var upload_data = {
         'page-name' : 'preview',
         'header'    : {
             'class' : 'fixed',
             'code'  : '<button id="back" class="btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> Edit image</button>'
         },
+
         'main'      : {
             'code' : '<img src="'+currentImage.href+'" alt="'+currentImage.title+'">'
         },
@@ -114,24 +118,5 @@ function _pagePreview(){
         }
     };
     parseTemplate(upload_data, '_page.htm');
-    imageLoading();
-}
-
-function imageLoading() {
-            hideLoading();
-//    var imgLoad = imagesLoaded('body');
-//    imgLoad.on('progress', function() {
-//
-//        // detect which image is broken
-//        for ( var i = 0, len = imgLoad.images.length; i < len; i++ ) {
-//            var image = imgLoad.images[i],
-//                imageTarget = $(image.img),
-//                imageSrc = image.img.src;
-//        }
-//    }).on( 'fail', function( instance ) {
-//        console.log('FAIL - all images loaded, at least one is broken');
-//    }).on( 'done', function( instance, image ) {
-//        hideLoading();
-//        console.log('DONE  - all images have been successfully loaded');
-//    });
+    hideLoading();
 }
