@@ -16,6 +16,7 @@ function uploadPhoto(imageURI, title, hashTags) {
 }
 
 function successUpload(r) {
+    alert('succcess');
     console.log("Code = " + r.responseCode);
     console.log("Response = " + r.response);
     console.log("Sent = " + r.bytesSent);
@@ -23,5 +24,6 @@ function successUpload(r) {
 }
 
 function failUpload(error) {
+    alert('error')
     console.log("An error has occurred: Code = " + error.code);
 }

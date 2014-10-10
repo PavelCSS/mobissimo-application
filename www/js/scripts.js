@@ -2,9 +2,6 @@ var backLinks = [], currentImage;
 
 document.addEventListener('deviceready', onDeviceReady, false);
 document.addEventListener('backbutton', onBack, false);
-$(function(){
-    onDeviceReady();
-});
 
 function onDeviceReady(){
     backLinks.push("parseTemplate(false, '_home.htm')");
@@ -17,7 +14,6 @@ function onBack(){
     eval('('+backLinks[length - 2]+')');
     backLinks = backLinks.slice(0, length - 1);
 }
-
 
 $('body')
     .on('tap', '#back', onBack)
