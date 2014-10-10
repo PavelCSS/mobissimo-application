@@ -7,16 +7,29 @@ function onDeviceReady(){
     backLinks.push("parseTemplate(false, '_home.htm')");
     parseTemplate(false, '_home.htm');
     navigator.splashscreen.hide();
+    console.log(navigator);
 
-    $$('body').on('pinch', 'img', function(o) {
-        console.log(o);
-    });
+
+//    $$('body').on('pinching', 'img', function(o) {
+//            var str='';
+//
+//            for(var p in o){
+//                if(typeof o[p] == 'string'){
+//                    str+= p + ': ' + o[p]+'; </br>';
+//                }else{
+//                    str+= p + ': { </br>' + print(o[p]) + '}';
+//                }
+//            }
+//
+//            console.log(str);
+//    });
 }
 
-function onBack(){
+function onBack(index){
     var length = backLinks.length;
-    eval('('+backLinks[length - 2]+')');
-    backLinks = backLinks.slice(0, length - 1);
+    index = (typeof index == 'undefined') ? index : length - 2;
+    eval('('+backLinks[index]+')');
+    backLinks = backLinks.slice(0, index + 1);
 }
 
 $('body')
@@ -47,14 +60,25 @@ $('body')
 function editPhoto(url){
     var image = document.getElementById('preview');
     image.src = url;
-    currentImage = {
-        'href' : url,
-        'title' : ''
-    };
-    _pagePreview();
+
+    $('footer').html(
+        '<button id="edit-photo" class="btn outline-bg"><i class="icon-pencil3 icon24"></i> Edit</button>'+
+        '<button id="save-photo" class="btn outline"><i class="icon-cd icon24"></i> Save</button>'
+    );
 }
 
 function _pageGallery(){
+    var latitude, longitude;
+    navigator.geolocation.watchPosition(onSuccess, onError);
+    function onSuccess(position) {
+        latitude = position.coords.latitude;
+        longitude = position.coords.longitude;
+    }
+
+    function onError(error) {
+        alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+    }
+
     backLinks.push("_pageGallery()");
     var gallery_data = {
         'page-name' : 'gallery',
@@ -65,9 +89,13 @@ function _pageGallery(){
         'main'      : 'Loading',
         'footer'    : false
     };
+
     parseTemplate(gallery_data, '_page.htm', function(code){
         $('section').replaceWith(code);
-        $.getJSON('http://192.168.1.143:3000/getjson', function(gall_list){
+        $.getJSON('http://192.168.1.143:3000/getjson', {
+            'lat' : latitude,
+            'lng' : longitude
+        } , function(gall_list){
             showLoading();
             parseTemplate(gall_list, '_gallery list.htm', function(html){
                 $('main').html(html);
@@ -105,18 +133,27 @@ function _pagePreview(){
         'page-name' : 'preview',
         'header'    : {
             'class' : 'fixed',
-            'code'  : '<button id="back" class="btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> Edit image</button>'
+            'code'  : '<button id="back" class="btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> '+currentImage.title+'</button>'
         },
 
         'main'      : {
             'code' : '<img src="'+currentImage.href+'" alt="'+currentImage.title+'">'
         },
-        'footer'    : {
-            'class' : 'fixed t-column_2 m-column_2 text-center',
-            'code'  : '<button id="edit-photo" class="btn icon-pencil3 outline-bg">Edit</button>'+
-                      '<button id="save-photo" class="btn icon-cd outline-bg">Save</button>'
-        }
+        'footer'    : false
     };
     parseTemplate(upload_data, '_page.htm');
     hideLoading();
+    var oldDistance = 0;
+    $('body').on('pinching', 'img', function(o) {
+        var distance = oldDistance - (o.distance < 0 ? (o.distance * -1) : o.distance);
+        oldDistance = distance;
+        var width = o.currentTarget.clientWidth + o.distance;
+        $(this).css({
+            'width'  : width
+        });
+        console.log(o);
+        console.log(o.currentTarget.clientWidth +',' +o.distance);
+    }).on('pinch', 'img', function(o) {
+        oldDistance = 0;
+    });
 }

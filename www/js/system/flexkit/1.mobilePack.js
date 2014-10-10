@@ -7,6 +7,7 @@ $('body').on('touchstart', function(e){
 function showLoading(){
     $('html').addClass('loading');
 }
+
 function hideLoading(){
     $('html').removeClass('loading');
 }

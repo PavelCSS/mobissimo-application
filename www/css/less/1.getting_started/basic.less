@@ -50,6 +50,7 @@ nav{ }
 //==================================================
 main{
     position : relative;
+    z-index  : 10;
     padding  : @padding-base-vertical @padding-base-horizontal;
 
     header.fixed + &{
@@ -59,24 +60,16 @@ main{
 #page-preview{
     .overlay-dotted();
 
-    &>*{
-        z-index: 10;
+    & > *{
+        z-index : 10;
     }
 
-    div{
-        position   : absolute;
-        left       : 0;
-        top        : 0;
+    img{
         width      : 100%;
-        height     : 100%;
-        padding    : 10px;
-        text-align : center;
-
-        img{
-            width      : auto;
-            max-height : 100%;
-            .box-shadow(3px 3px 15px #000);
-        }
+        min-width  : 100%;
+        max-height : none;
+        max-width  : none;
+        .box-shadow(3px 3px 15px #000);
     }
 }
 

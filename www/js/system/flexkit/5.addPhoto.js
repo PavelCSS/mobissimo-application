@@ -20,8 +20,8 @@ function onSuccessImage(imageData){
     }else{
         url = imageData;
     }
-    hideLoading();
     callBack(url);
+    hideLoading();
 }
 
 function onFailImage(message){

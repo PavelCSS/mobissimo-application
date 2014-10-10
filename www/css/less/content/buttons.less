@@ -1,6 +1,6 @@
 // Base styles
 // --------------------------------------------------
-.btn, button, [type="submit"], [type="button"], [type="reset"]{
+.btn{
     .button();
     .user-select();
     .box-shadow(none; @input-shadow-focus);
@@ -27,9 +27,7 @@
     &:active, &.active{
         .box-shadow(2px 2px 4px rgba(0, 0, 0, .3) inset; @button-box-shadow);
     }
-}
 
-.btn{
     // Alternate buttons
     // --------------------------------------------------
     // Inverse button appears as gray => primary
@@ -161,6 +159,12 @@
         }
     }
 
+    &.outline when (@button-type-outline = true) and (@button-types = true){
+        & when (@button-border-width = 0) and (@button-border-width < 2){
+            padding-top    : @button-border-outline;
+            padding-bottom : @button-border-outline;
+        }
+    }
     &.outline-bg when (@button-type-outline = true) and (@button-types = true){
         & when (@button-border-width = 0) and (@button-border-width < 2){
             border : @button-border-outline solid;

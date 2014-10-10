@@ -1,11 +1,11 @@
-function uploadPhoto(imageURI, title, hashTags) {
+function uploadPhoto(imageURI, name, hashTags) {
     var options = new FileUploadOptions();
     options.fileKey="file";
     options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
     options.mimeType="image/jpeg";
 
     var params = new Object();
-    params.title = title;
+    params.title = name;
     params.hashTags = hashTags;
 
     options.params = params;
@@ -20,6 +20,7 @@ function successUpload(r) {
     console.log("Response = " + r.response);
     console.log("Sent = " + r.bytesSent);
     console.log(r.response);
+    onBack(0);
 }
 
 function failUpload(error) {
