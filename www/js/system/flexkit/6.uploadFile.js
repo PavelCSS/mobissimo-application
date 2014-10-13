@@ -1,4 +1,4 @@
-function uploadPhoto(imageURI, name, hashTags) {
+function uploadPhoto(imageURI, name) {
     var options = new FileUploadOptions();
     options.fileKey="file";
     options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
@@ -6,7 +6,7 @@ function uploadPhoto(imageURI, name, hashTags) {
 
     var params = new Object();
     params.title = name;
-    params.hashTags = hashTags;
+//    params.hashTags = hashTags;
 
     options.params = params;
     options.chunkedMode = false;

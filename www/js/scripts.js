@@ -2,13 +2,14 @@ var backLinks = [], currentImage;
 
 document.addEventListener('deviceready', onDeviceReady, false);
 document.addEventListener('backbutton', onBack, false);
+$(function(){
+    onDeviceReady();
+});
 
 function onDeviceReady(){
     backLinks.push("parseTemplate(false, '_home.htm')");
     parseTemplate(false, '_home.htm');
     navigator.splashscreen.hide();
-    console.log(navigator);
-
 
 //    $$('body').on('pinching', 'img', function(o) {
 //            var str='';
@@ -33,7 +34,7 @@ function onBack(index){
 }
 
 $('body')
-    .on('tap', '#back', onBack)
+    .on('tap', '.back', onBack)
     .on('tap', '#gallery', _pageGallery)
     .on('tap', '#upload-photo', _pageUpload)
     .on('tap', '#gallery-list a', function(){
@@ -54,55 +55,66 @@ $('body')
         });
     })
     .on('tap', '#save-photo', function(){
-        uploadPhoto(currentImage.href);
+        uploadPhoto(currentImage.href, currentImage.title);
     });
 
 function editPhoto(url){
     var image = document.getElementById('preview');
     image.src = url;
 
+    $('main').html('');
+
     $('footer').html(
-        '<button id="edit-photo" class="btn outline-bg"><i class="icon-pencil3 icon24"></i> Edit</button>'+
+        '<button id="edit-photo" class="back btn outline-bg"><i class="icon-cancel icon24"></i> Cancel</button>'+
         '<button id="save-photo" class="btn outline"><i class="icon-cd icon24"></i> Save</button>'
     );
 }
 
 function _pageGallery(){
-    var latitude, longitude;
-    navigator.geolocation.watchPosition(onSuccess, onError);
-    function onSuccess(position) {
-        latitude = position.coords.latitude;
-        longitude = position.coords.longitude;
-    }
-
-    function onError(error) {
-        alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
-    }
-
+    showLoading();
     backLinks.push("_pageGallery()");
     var gallery_data = {
         'page-name' : 'gallery',
         'header'    : {
             'class' : 'fixed',
-            'code' : '<button id="back" class="btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> Mobbisimo gallery</button>'
+            'code' : '<button class="back btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> Mobbisimo gallery</button>'
         },
         'main'      : 'Loading',
         'footer'    : false
     };
 
-    parseTemplate(gallery_data, '_page.htm', function(code){
-        $('section').replaceWith(code);
-        $.getJSON('http://192.168.1.143:3000/getjson', {
-            'lat' : latitude,
-            'lng' : longitude
-        } , function(gall_list){
-            showLoading();
-            parseTemplate(gall_list, '_gallery list.htm', function(html){
-                $('main').html(html);
-                hideLoading();
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+
+    function onSuccess(position) {
+        var latitude = position.coords.latitude,
+            longitude = position.coords.longitude;
+
+        parseTemplate(gallery_data, '_page.htm', function(code){
+            $('section').replaceWith(code);
+            $.ajax({
+                dataType : 'jsonp',
+                data     : {
+                    'lat' : latitude,
+                    'lng' : longitude
+                },
+                url      : 'http://192.168.1.143:3000/getbestpricelist',
+                success  : function(gall_list){
+                    showLoading();
+                    parseTemplate(gall_list, '_gallery list.htm', function(html){
+                        $('main').html(html);
+                        hideLoading();
+                    });
+                },
+                error    : function(data){
+                    console.log(data)
+                }
             });
         });
-    });
+    }
+
+    function onError(error) {
+        alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+    }
 }
 
 function _pageUpload(){
@@ -111,14 +123,14 @@ function _pageUpload(){
         'page-name' : 'upload',
         'header'    : {
             'class' : 'fixed',
-            'code'  : '<button id="back" class="btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> Add new image</button>'
+            'code'  : '<button class="back btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> Add new image</button>'
         },
         'main'      :{
-            'class' : '',
+            'class' : 'text-center',
             'code'  : '<img id="preview" src="images/upload-image.png">'
         },
         'footer'    : {
-            'class' : 'fixed t-column_2 m-column_2 text-center',
+            'class' : 'fixed column_2 t-column_2 m-column_2 text-center',
             'code'  : '<button id="take-photo" class="btn"><i class="icon-camera icon24"></i> Take photo</button>' +
                       '<button id="select-photo" class="btn"><i class="icon-pictures3 icon24"></i> Select photo</button>'
         }
@@ -133,13 +145,16 @@ function _pagePreview(){
         'page-name' : 'preview',
         'header'    : {
             'class' : 'fixed',
-            'code'  : '<button id="back" class="btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> '+currentImage.title+'</button>'
+            'code'  : '<button class="back btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> '+currentImage.title+'</button>'
         },
 
         'main'      : {
             'code' : '<img src="'+currentImage.href+'" alt="'+currentImage.title+'">'
         },
-        'footer'    : false
+        'footer'    : {
+            'class' : 'fixed info',
+            'code'  : ''
+        }
     };
     parseTemplate(upload_data, '_page.htm');
     hideLoading();
