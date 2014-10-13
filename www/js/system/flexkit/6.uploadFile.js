@@ -1,4 +1,4 @@
-function uploadPhoto(imageURI, name) {
+function uploadPhoto(imageURI) {
     var options = new FileUploadOptions();
     options.fileKey="file";
     options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
@@ -12,7 +12,6 @@ function uploadPhoto(imageURI, name) {
     options.chunkedMode = false;
 
     var ft = new FileTransfer();
-    alert('dsfdsfds')
     ft.upload(imageURI, "http://192.168.1.143:3000/upload", successUpload, failUpload, options);
 }
 

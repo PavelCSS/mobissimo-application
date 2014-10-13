@@ -53,7 +53,7 @@ main{
     z-index  : 10;
     padding  : @padding-base-vertical @padding-base-horizontal;
 
-    header.fixed + &{
+    &.mh{
         margin-top : @header-height;
     }
 }
@@ -101,6 +101,10 @@ footer{
         min-height : @footer-height;
         background : @footer-bg;
         color      : @footer-color;
+    }
+
+    &.info{
+        background: fade(#000, 75%);
     }
 
     p{ }

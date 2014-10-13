@@ -1,12 +1,31 @@
-<ul id="gallery-list" class="img_gallery t-column_3 m-column_2 full-width">
+<ul id="gallery-list" class="img_gallery column_4 t-column_3 m-column_2 full-width">
 {{#images}}
     <li>
+        <span class="best_price small">${{Price}}</span>
         <a class="responsive-image _4x3" href="javascript:;" data-href="{{protocol}}{{ip}}:{{port}}/{{path_original}}" title="{{name}}">
             <img src="{{protocol}}{{ip}}:{{port}}/{{path_thumnail}}" width="150" alt="{{name}}">
         </a>
         {{#name}}
         <span class="image_caption">{{name}}</span>
         {{/name}}
+        <table class="image-info hidden">
+            <tr>
+                <td class="text-right">Provider :</td>
+                <td>{{Provider}}</td>
+            </tr>
+            <tr>
+                <td class="text-right">Airline :</td>
+                <td>{{Airline}}</td>
+            </tr>
+            <tr>
+                <td class="text-right">Cabin :</td>
+                <td>{{Cabin}}</td>
+            </tr>
+            <tr>
+                <td class="text-right">Price :</td>
+                <td>${{Price}}</td>
+            </tr>
+        </table>
     </li>
 {{/images}}
 </ul>

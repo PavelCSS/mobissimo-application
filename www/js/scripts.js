@@ -39,18 +39,21 @@ $('body')
     .on('tap', '#upload-photo', _pageUpload)
     .on('tap', '#gallery-list a', function(){
         currentImage = {
-            'href' : $(this).data('href'),
-            'title' : $(this).attr('title')
+            'href'  : $(this).data('href'),
+            'title' : $(this).attr('title'),
+            'info'  : $(this).parent().find('table.image-info').html()
         };
         _pagePreview();
     })
     .on('tap', '#take-photo', function(){
         addPhoto(1, 1, function(url){
+//            uploadPhoto(url);
             editPhoto(url);
         });
     })
     .on('tap', '#select-photo', function(){
         addPhoto(1, 0, function(url){
+//            uploadPhoto(url);
             editPhoto(url);
         });
     })
@@ -62,7 +65,7 @@ function editPhoto(url){
     var image = document.getElementById('preview');
     image.src = url;
 
-    $('main').html('');
+//    $('main').html('');
 
     $('footer').html(
         '<button id="edit-photo" class="back btn outline-bg"><i class="icon-cancel icon24"></i> Cancel</button>'+
@@ -79,7 +82,9 @@ function _pageGallery(){
             'class' : 'fixed',
             'code' : '<button class="back btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> Mobbisimo gallery</button>'
         },
-        'main'      : 'Loading',
+        'main'      : {
+            'class' : 'mh'
+        },
         'footer'    : false
     };
 
@@ -126,13 +131,15 @@ function _pageUpload(){
             'code'  : '<button class="back btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> Add new image</button>'
         },
         'main'      :{
-            'class' : 'text-center',
+            'class' : 'text-center mh',
             'code'  : '<img id="preview" src="images/upload-image.png">'
         },
         'footer'    : {
+//            'class' : 'fixed text-center',
             'class' : 'fixed column_2 t-column_2 m-column_2 text-center',
             'code'  : '<button id="take-photo" class="btn"><i class="icon-camera icon24"></i> Take photo</button>' +
                       '<button id="select-photo" class="btn"><i class="icon-pictures3 icon24"></i> Select photo</button>'
+//            'code'  : '<form id="upload-form" action="http://192.168.1.143:3000/upload" class="column_2 t-column_2 m-column_2" enctype="multipart/form-data" method="post"><input name="title" type="hidden"><input class="btn" multiple="multiple" name="upload" type="file"><input class="btn" type="submit" value="Upload"></form>'
         }
     };
     parseTemplate(upload_data, '_page.htm');
@@ -141,6 +148,7 @@ function _pageUpload(){
 function _pagePreview(){
     showLoading();
     backLinks.push("_pagePreview()");
+    console.log(currentImage.info)
     var upload_data = {
         'page-name' : 'preview',
         'header'    : {
@@ -153,22 +161,23 @@ function _pagePreview(){
         },
         'footer'    : {
             'class' : 'fixed info',
-            'code'  : ''
+            'code'  : '<table>'+currentImage.info+'</table>'
+
         }
     };
     parseTemplate(upload_data, '_page.htm');
     hideLoading();
-    var oldDistance = 0;
-    $('body').on('pinching', 'img', function(o) {
-        var distance = oldDistance - (o.distance < 0 ? (o.distance * -1) : o.distance);
-        oldDistance = distance;
-        var width = o.currentTarget.clientWidth + o.distance;
-        $(this).css({
-            'width'  : width
-        });
-        console.log(o);
-        console.log(o.currentTarget.clientWidth +',' +o.distance);
-    }).on('pinch', 'img', function(o) {
-        oldDistance = 0;
-    });
+//    var oldDistance = 0;
+//    $('body').on('pinching', 'img', function(o) {
+//        var distance = oldDistance - (o.distance < 0 ? (o.distance * -1) : o.distance);
+//        oldDistance = distance;
+//        var width = o.currentTarget.clientWidth + o.distance;
+//        $(this).css({
+//            'width'  : width
+//        });
+//        console.log(o);
+//        console.log(o.currentTarget.clientWidth +',' +o.distance);
+//    }).on('pinch', 'img', function(o) {
+//        oldDistance = 0;
+//    });
 }
