@@ -38,12 +38,13 @@ $('body')
     .on('tap', '#gallery', _pageGallery)
     .on('tap', '#upload-photo', _pageUpload)
     .on('tap', '#gallery-list a', function(){
-        currentImage = {
-            'href'  : $(this).data('href'),
-            'title' : $(this).attr('title'),
-            'info'  : $(this).parent().find('table.image-info').html()
-        };
-        _pagePreview();
+//        currentImage = {
+//            'href'  : $(this).data('href'),
+//            'title' : $(this).attr('title'),
+//            'info'  : $(this).parent().find('table.image-info').html()
+//        };
+//        _pagePreview();
+        window.open($(this).data('url'), '_system');
     })
     .on('tap', '#take-photo', function(){
         addPhoto(1, 1, function(url){
@@ -58,6 +59,9 @@ $('body')
     .on('tap', '#save-photo', function(){
         var title = $('input.title').val();
         uploadPhoto(currentImage.href, title);
+    })
+    .on('tap', '#page-preview', function(){
+        $(this).toggleClass('imgShow');
     });
 
 function editPhoto(url){
@@ -141,13 +145,13 @@ function _pageUpload(){
             'code'  : '<img id="preview" src="images/upload-image.png">'
         },
         'footer'    : {
-//            'class' : 'fixed text-center',
             'class' : 'fixed text-center',
-            'code'  : '<div class="column_2 t-column_2 m-column_2">' +
-                          '<button id="take-photo" class="btn"><i class="icon-camera icon24"></i> Take photo</button>' +
-                          '<button id="select-photo" class="btn"><i class="icon-pictures3 icon24"></i> Select photo</button>' +
-                      '</div>'
-//            'code'  : '<form id="upload-form" action="http://192.168.1.143:3000/upload" class="column_2 t-column_2 m-column_2" enctype="multipart/form-data" method="post"><input name="title" type="hidden"><input class="btn" multiple="multiple" name="upload" type="file"><input class="btn" type="submit" value="Upload"></form>'
+//            'class' : 'fixed text-center',
+//            'code'  : '<div class="column_2 t-column_2 m-column_2">' +
+//                          '<button id="take-photo" class="btn"><i class="icon-camera icon24"></i> Take photo</button>' +
+//                          '<button id="select-photo" class="btn"><i class="icon-pictures3 icon24"></i> Select photo</button>' +
+//                      '</div>'
+            'code'  : '<form id="upload-form" action="http://192.168.1.143:3000/upload" class="column_2 t-column_2 m-column_2" enctype="multipart/form-data" method="post"><input name="title" type="hidden"><input class="btn" multiple="multiple" name="upload" type="file"><input class="btn" type="submit" value="Upload"></form>'
         }
     };
     parseTemplate(upload_data, '_page.htm');
