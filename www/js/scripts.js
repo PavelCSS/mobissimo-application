@@ -70,11 +70,12 @@ function editPhoto(url){
         'info'  : ''
     };
 
-    $('main').append('<div><input type="text" class="title" placeholder="Please enter name photo"></div>');
-
     $('footer').html(
-        '<button id="edit-photo" class="back btn outline-bg"><i class="icon-cancel icon24"></i> Cancel</button>'+
-        '<button id="save-photo" class="btn outline"><i class="icon-cd icon24"></i> Save</button>'
+        '<input type="text" class="title" placeholder="Please enter name photo">' +
+        '<div class="column_2 t-column_2 m-column_2 mt10px">' +
+            '<button id="edit-photo" class="back btn outline-bg"><i class="icon-cancel icon24"></i> Cancel</button>'+
+            '<button id="save-photo" class="btn outline"><i class="icon-cd icon24"></i> Save</button>' +
+        '</div>'
     );
 }
 
@@ -141,9 +142,11 @@ function _pageUpload(){
         },
         'footer'    : {
 //            'class' : 'fixed text-center',
-            'class' : 'fixed column_2 t-column_2 m-column_2 text-center',
-            'code'  : '<button id="take-photo" class="btn"><i class="icon-camera icon24"></i> Take photo</button>' +
-                      '<button id="select-photo" class="btn"><i class="icon-pictures3 icon24"></i> Select photo</button>'
+            'class' : 'fixed text-center',
+            'code'  : '<div class="column_2 t-column_2 m-column_2">' +
+                          '<button id="take-photo" class="btn"><i class="icon-camera icon24"></i> Take photo</button>' +
+                          '<button id="select-photo" class="btn"><i class="icon-pictures3 icon24"></i> Select photo</button>' +
+                      '</div>'
 //            'code'  : '<form id="upload-form" action="http://192.168.1.143:3000/upload" class="column_2 t-column_2 m-column_2" enctype="multipart/form-data" method="post"><input name="title" type="hidden"><input class="btn" multiple="multiple" name="upload" type="file"><input class="btn" type="submit" value="Upload"></form>'
         }
     };
