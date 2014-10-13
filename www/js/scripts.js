@@ -47,25 +47,30 @@ $('body')
     })
     .on('tap', '#take-photo', function(){
         addPhoto(1, 1, function(url){
-//            uploadPhoto(url);
             editPhoto(url);
         });
     })
     .on('tap', '#select-photo', function(){
         addPhoto(1, 0, function(url){
-//            uploadPhoto(url);
             editPhoto(url);
         });
     })
     .on('tap', '#save-photo', function(){
-        uploadPhoto(currentImage.href, currentImage.title);
+        var title = $('input.title').val();
+        uploadPhoto(currentImage.href, title);
     });
 
 function editPhoto(url){
     var image = document.getElementById('preview');
     image.src = url;
 
-//    $('main').html('');
+    currentImage = {
+        'href'  : url,
+        'title' : '',
+        'info'  : ''
+    };
+
+    $('main').append('<div><input type="text" class="title" placeholder="Please enter name photo"></div>');
 
     $('footer').html(
         '<button id="edit-photo" class="back btn outline-bg"><i class="icon-cancel icon24"></i> Cancel</button>'+

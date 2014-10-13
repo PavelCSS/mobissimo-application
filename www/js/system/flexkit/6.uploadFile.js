@@ -1,4 +1,4 @@
-function uploadPhoto(imageURI) {
+function uploadPhoto(imageURI, name) {
     var options = new FileUploadOptions();
     options.fileKey="file";
     options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
