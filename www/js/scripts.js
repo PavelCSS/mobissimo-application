@@ -66,7 +66,7 @@ function editPhoto(url){
     };
 
     $('footer').html(
-        '<input type="text" class="title" placeholder="Please enter name photo">' +
+//        '<input type="text" class="title" placeholder="Please enter name photo">' +
         '<div class="column_2 t-column_2 m-column_2 mt10px">' +
             '<button id="edit-photo" class="back btn outline-bg"><i class="icon-cancel icon24"></i> Cancel</button>'+
             '<button id="save-photo" class="btn outline"><i class="icon-cd icon24"></i> Save</button>' +

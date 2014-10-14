@@ -10,7 +10,7 @@
                     <img src="{{protocol}}{{ip}}:{{port}}/{{path_thumnail}}" width="150" alt="{{name}}">
                 </span>
                 <div class="image-info clearfix">
-                    <div class="{{#Price}}grid_8 alpha{{/Price}}{{^Price}}grid_12{{/Price}}">
+                    <div class="{{#Price}}grid_7 alpha{{/Price}}{{^Price}}grid_12{{/Price}}">
                         <h4 class="mb5px">Compare to:</h4>
                         <div class="column_2 t-column_3 m-column_2 full-width">
                             <label class="pointer">
@@ -32,9 +32,9 @@
                         </div>
                     </div>
                     {{#Price}}
-                    <div class="grid_4 omega text-right">
+                    <div class="grid_5 omega text-right">
                         <span>Last price found</span>
-                        <span class="price fs24 primary block">${{Price}}</span>
+                        <span class="price fs24 primary-bg block text-center mt5px">${{Price}}</span>
                         <!--<a href="http://www.volissimo.com/search-result.html?QueryID={{QueryID}}" target="_blank" class="btn small">Compare</a>-->
                     </div>
                     {{/Price}}
