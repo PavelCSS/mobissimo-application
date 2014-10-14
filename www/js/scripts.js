@@ -27,14 +27,15 @@ $('body')
     .on('tap', '.back', onBack)
     .on('tap', '#gallery', _pageGallery)
     .on('tap', '#upload-photo', _pageUpload)
-    .on('tap', '#gallery-list a', function(){
-//        currentImage = {
-//            'href'  : $(this).data('href'),
-//            'title' : $(this).attr('title'),
-//            'info'  : $(this).parent().find('table.image-info').html()
-//        };
-//        _pagePreview();
-        window.open($(this).data('url'), '_system');
+    .on('tap', '#gallery-list a.image', function(){
+        currentImage = {
+            'href'  : $(this).data('href'),
+            'title' : $(this).attr('title'),
+            'price' : $(this).parent().find('.best_price'),
+            'info'  : $(this).parent().find('table.image-info').html()
+        };
+        _pagePreview();
+//        window.open($(this).data('url'), '_system');
     })
     .on('tap', '#take-photo', function(){
         addPhoto(1, 1, function(url){
@@ -203,24 +204,35 @@ function _pageUpload(){
 
 function _pagePreview(){
     showLoading();
-    backLinks.push("_pagePreview()");
-    var upload_data = {
+//    backLinks.push("_pagePreview()");
+    var image_data = {
         'page-name' : 'preview',
         'header'    : {
             'class' : 'fixed',
-            'code'  : '<button class="back btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> '+currentImage.title+'</button>'
+            'code'  : '<button class="hide btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> '+currentImage.title+'</button>'
         },
 
         'main'      : {
+            'class' : 'container',
             'code' : '<img src="'+currentImage.href+'" alt="'+currentImage.title+'">'
         },
         'footer'    : {
             'class' : 'fixed info',
-            'code'  : '<table>'+currentImage.info+'</table>'
-
+            'code'  : function(){
+                if(currentImage.info && currentImage.price.length){
+                    return '<table>'+currentImage.info+'</table>'
+                }
+            }
         }
     };
-    parseTemplate(upload_data, '_page.htm');
+    parseTemplate(image_data, '_page.htm', function(html){
+        $('section').append(html);
+    });
+
+    $('body').on('tap', 'button.hide', function(){
+        $('#page-preview').remove();
+    });
+
     hideLoading();
 //    var oldDistance = 0;
 //    $('body').on('pinching', 'img', function(o) {
