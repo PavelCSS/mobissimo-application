@@ -106,7 +106,6 @@ function _pageGallery(){
                 },
                 url      : 'http://54.165.42.238:5000/getbestpricelist',
                 success  : function(gall_list){
-                    console.log(gall_list)
                     showLoading();
                     parseTemplate(gall_list, '_gallery list.htm', function(html){
                         $('main').html(html);

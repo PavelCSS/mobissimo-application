@@ -18,6 +18,7 @@ function successUpload(r) {
     console.log("Sent = " + r.bytesSent);
     console.log(r.response);
     onBack(0);
+    hideLoading();
 }
 
 function failUpload(error) {
