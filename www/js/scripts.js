@@ -10,20 +10,6 @@ function onDeviceReady(){
     backLinks.push("parseTemplate(false, '_home.htm')");
     parseTemplate(false, '_home.htm');
     navigator.splashscreen.hide();
-
-//    $$('body').on('pinching', 'img', function(o) {
-//            var str='';
-//
-//            for(var p in o){
-//                if(typeof o[p] == 'string'){
-//                    str+= p + ': ' + o[p]+'; </br>';
-//                }else{
-//                    str+= p + ': { </br>' + print(o[p]) + '}';
-//                }
-//            }
-//
-//            console.log(str);
-//    });
 }
 
 function onBack(index){
@@ -145,13 +131,13 @@ function _pageUpload(){
             'code'  : '<img id="preview" src="images/upload-image.png">'
         },
         'footer'    : {
-            'class' : 'fixed text-center',
 //            'class' : 'fixed text-center',
-//            'code'  : '<div class="column_2 t-column_2 m-column_2">' +
-//                          '<button id="take-photo" class="btn"><i class="icon-camera icon24"></i> Take photo</button>' +
-//                          '<button id="select-photo" class="btn"><i class="icon-pictures3 icon24"></i> Select photo</button>' +
-//                      '</div>'
-            'code'  : '<form id="upload-form" action="http://192.168.1.143:3000/upload" class="column_2 t-column_2 m-column_2" enctype="multipart/form-data" method="post"><input name="title" type="hidden"><input class="btn" multiple="multiple" name="upload" type="file"><input class="btn" type="submit" value="Upload"></form>'
+            'class' : 'fixed text-center',
+            'code'  : '<div class="column_2 t-column_2 m-column_2">' +
+                          '<button id="take-photo" class="btn"><i class="icon-camera icon24"></i> Take photo</button>' +
+                          '<button id="select-photo" class="btn"><i class="icon-pictures3 icon24"></i> Select photo</button>' +
+                      '</div>'
+//            'code'  : '<form id="upload-form" action="http://54.165.42.238:5000/upload" class="column_2 t-column_2 m-column_2" enctype="multipart/form-data" method="post"><input name="title" type="hidden"><label class="btn"><input class="hide" multiple="multiple" name="upload" type="file">Select photo</label><input class="btn" type="submit" value="Upload photo"></form>'
         }
     };
     parseTemplate(upload_data, '_page.htm');
@@ -160,7 +146,6 @@ function _pageUpload(){
 function _pagePreview(){
     showLoading();
     backLinks.push("_pagePreview()");
-    console.log(currentImage.info)
     var upload_data = {
         'page-name' : 'preview',
         'header'    : {

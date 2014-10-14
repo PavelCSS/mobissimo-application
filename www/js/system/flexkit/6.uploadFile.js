@@ -8,9 +8,6 @@ function uploadPhoto(imageURI, name) {
     params.title = name;
 //    params.hashTags = hashTags;
 
-    options.params = params;
-    options.chunkedMode = false;
-
     var ft = new FileTransfer();
     ft.upload(imageURI, "http://192.168.1.143:3000/upload", successUpload, failUpload, options);
 }
