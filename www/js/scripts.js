@@ -1,19 +1,19 @@
 var backLinks = [], currentImage;
 
-//document.addEventListener('deviceready', onDeviceReady, false);
+document.addEventListener('deviceready', onDeviceReady, false);
 document.addEventListener('backbutton', onBack, false);
-$(function(){
-    onDeviceReady();
-});
+//$(function(){
+//    onDeviceReady();
+//});
 
 function onDeviceReady(){
-    if(device.type){
+//    if(device.type){
         backLinks.push("parseTemplate(false, '_home.htm')");
         parseTemplate(false, '_home.htm');
         navigator.splashscreen.hide();
-    }else{
-        _pageHomeGallery();
-    }
+//    }else{
+//        _pageHomeGallery();
+//    }
 }
 
 function onBack(index){
@@ -48,6 +48,7 @@ $('body')
         });
     })
     .on('tap', '#save-photo', function(){
+        showLoading();
         var title = $('input.title').val();
         uploadPhoto(currentImage.href, title);
     })
