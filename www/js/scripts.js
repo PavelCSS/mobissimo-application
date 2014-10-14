@@ -1,15 +1,19 @@
 var backLinks = [], currentImage;
 
-document.addEventListener('deviceready', onDeviceReady, false);
+//document.addEventListener('deviceready', onDeviceReady, false);
 document.addEventListener('backbutton', onBack, false);
 $(function(){
     onDeviceReady();
 });
 
 function onDeviceReady(){
-    backLinks.push("parseTemplate(false, '_home.htm')");
-    parseTemplate(false, '_home.htm');
-    navigator.splashscreen.hide();
+    if(device.type){
+        backLinks.push("parseTemplate(false, '_home.htm')");
+        parseTemplate(false, '_home.htm');
+        navigator.splashscreen.hide();
+    }else{
+        _pageHomeGallery();
+    }
 }
 
 function onBack(index){
@@ -98,8 +102,9 @@ function _pageGallery(){
                     'lat' : latitude,
                     'lng' : longitude
                 },
-                url      : 'http://192.168.1.143:3000/getbestpricelist',
+                url      : 'http://54.165.42.238:5000/getbestpricelist',
                 success  : function(gall_list){
+                    console.log(gall_list)
                     showLoading();
                     parseTemplate(gall_list, '_gallery list.htm', function(html){
                         $('main').html(html);
@@ -110,6 +115,59 @@ function _pageGallery(){
                     console.log(data)
                 }
             });
+        });
+    }
+
+    function onError(error) {
+        alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+    }
+}
+
+function _pageHomeGallery(){
+    showLoading();
+
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+
+    function onSuccess(position) {
+        var latitude = position.coords.latitude,
+            longitude = position.coords.longitude;
+
+        $.ajax({
+            dataType : 'jsonp',
+            data     : {
+                'lat' : latitude,
+                'lng' : longitude
+            },
+            url      : 'http://54.165.42.238:5000/getbestpricelist',
+            success  : function(gall_list){
+                var d = new Date();
+                    d.setDate(d.getDate() + 3);
+                var month = d.getMonth() + 1;
+                var day = d.getDate();
+                var year = d.getFullYear();
+                    d.setDate(d.getDate() + 7);
+                var r_month = d.getMonth() + 1;
+                var r_day = d.getDate();
+                var r_year = d.getFullYear();
+                gall_list['depart_month'] = month;
+                gall_list['depart_day'] = day;
+                gall_list['depart_year'] = year;
+                gall_list['return_month'] = r_month;
+                gall_list['return_day'] = r_day;
+                gall_list['return_year'] = r_year;
+                parseTemplate(gall_list, '_gallery list DESK.htm');
+                hideLoading();
+            },
+            error    : function(data){
+                hideLoading();
+                console.log(data)
+            }
+        });
+
+        $('body').on('change', '.image-info input[type="checkbox"]', function(){
+            if($(this).is(':checked')){
+                window.open($(this).val(), '_blank');
+            }
         });
     }
 

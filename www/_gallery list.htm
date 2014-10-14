@@ -1,7 +1,7 @@
 <ul id="gallery-list" class="img_gallery column_4 t-column_3 m-column_2 full-width">
-{{#images}}
+{{#gallery}}
     <li>
-        <span class="best_price small">${{Price}}</span>
+        {{#Price}}<span class="best_price small">${{Price}}</span>{{/Price}}
         <a class="responsive-image _4x3" href="javascript:;" data-url="http://www.volissimo.com/search-result.html?QueryID={{QueryID}}" data-href="{{protocol}}{{ip}}:{{port}}/{{path_original}}" title="{{name}}">
             <img src="{{protocol}}{{ip}}:{{port}}/{{path_thumnail}}" width="150" alt="{{name}}">
         </a>
@@ -27,5 +27,5 @@
             </tr>
         </table>
     </li>
-{{/images}}
+{{/gallery}}
 </ul>
