@@ -51,6 +51,11 @@ $('body')
         }
         $('.name-file').text('[ ' + nameFile + ' ]');
         $('.upload-block, .choose-block').toggle();
+    })
+    .on('singleTap', '[type="reset"]', function(e){
+        $('[name="upload"]').val('');
+        $('.name-file').text('');
+        $('.upload-block, .choose-block').toggle();
     });
 
 var liActive;
