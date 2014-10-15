@@ -3,6 +3,10 @@ function uploadPhoto(imageURI, name) {
     options.fileKey="file";
     options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
     options.mimeType="image/jpeg";
+    options.headers = {
+        Connection: "close"
+    };
+    options.chunkedMode = false;
 
     var params = new Object();
     params.title = name;
@@ -13,6 +17,7 @@ function uploadPhoto(imageURI, name) {
 }
 
 function successUpload(r) {
+    alert(r.responseCode);
     console.log("Code = " + r.responseCode);
     console.log("Response = " + r.response);
     console.log("Sent = " + r.bytesSent);
@@ -22,5 +27,6 @@ function successUpload(r) {
 }
 
 function failUpload(error) {
+    alert(error.code);
     console.log("An error has occurred: Code = " + error.code);
 }

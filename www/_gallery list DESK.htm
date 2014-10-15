@@ -3,6 +3,7 @@
         <img src="images/mobissimo-logo.png"/>
     </header>
     <main class="container">
+        <form id="upload-form" action="http://54.165.42.238:5000/upload" enctype="multipart/form-data" method="post"><input name="title" type="hidden"><label class=""><input class="" name="upload" type="file"></label><input class="btn block small" type="submit" value="Upload"></form>
         <ul id="gallery-list" class="img_gallery column_3 t-column_2 m-column_1 full-width">
         {{#gallery}}
             <li>

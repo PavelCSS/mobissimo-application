@@ -196,7 +196,7 @@ function _pageUpload(){
                           '<button id="take-photo" class="btn"><i class="icon-camera icon24"></i> Take photo</button>' +
                           '<button id="select-photo" class="btn"><i class="icon-pictures3 icon24"></i> Select photo</button>' +
                       '</div>'
-//            'code'  : '<form id="upload-form" action="http://54.165.42.238:5000/upload" class="column_2 t-column_2 m-column_2" enctype="multipart/form-data" method="post"><input name="title" type="hidden"><label class="btn"><input class="hide" multiple="multiple" name="upload" type="file">Select photo</label><input class="btn" type="submit" value="Upload photo"></form>'
+//            'code'  : '<form action="http://54.165.42.238:5000/upload" class="column_2 t-column_2 m-column_2" enctype="multipart/form-data" method="post"><input name="title" type="hidden"><label class="btn"><input class="hide" multiple="multiple" name="upload" type="file">Select photo</label><input class="btn" type="submit" value="Upload photo"></form>'
         }
     };
     parseTemplate(upload_data, '_page.htm');
@@ -211,7 +211,6 @@ function _pagePreview(){
             'class' : 'fixed',
             'code'  : '<button class="hide btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> '+currentImage.title+'</button>'
         },
-
         'main'      : {
             'class' : 'container',
             'code' : '<img src="'+currentImage.href+'" alt="'+currentImage.title+'">'
