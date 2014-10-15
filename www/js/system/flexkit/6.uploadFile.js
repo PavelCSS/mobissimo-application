@@ -27,6 +27,8 @@ function successUpload(r) {
 }
 
 function failUpload(error) {
+    hideLoading();
+    alert('Please try again...');
     alert(error.code);
     console.log("An error has occurred: Code = " + error.code);
 }
