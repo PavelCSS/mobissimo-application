@@ -1,47 +1,55 @@
-<section id="home">
-    <header class="text-center p30px">
-        <img src="images/mobissimo-logo.png"/>
-    </header>
-    <main class="container">
-        <form id="upload-form" action="http://54.165.42.238:5000/upload" enctype="multipart/form-data" method="post"><input name="title" type="hidden"><label class=""><input class="" name="upload" type="file"></label><input class="btn block small" type="submit" value="Upload"></form>
-        <ul id="gallery-list" class="img_gallery column_3 t-column_2 m-column_1 full-width">
-        {{#gallery}}
-            <li>
-                <span class="image responsive-image _16x9" href="javascript:;" data-href="{{protocol}}{{ip}}:{{port}}/{{path_original}}" title="{{name}}">
-                    <img src="{{protocol}}{{ip}}:{{port}}/{{path_thumnail}}" width="150" alt="{{name}}">
-                </span>
-                <div class="image-info clearfix">
-                    <div class="{{#Price}}grid_7 alpha{{/Price}}{{^Price}}grid_12{{/Price}}">
-                        <h4 class="mb5px">Compare to:</h4>
-                        <div class="column_2 t-column_3 m-column_2 full-width">
-                            <label class="pointer">
-                                <input type="checkbox" value="http://www.hotwire.com/air/search-options.jsp?sid=S235&bid=B295416&inputId=index&&origCity={{nearest_airport.City}}%2C+v+-+%28{{nearest_airport.Code}}%29&destinationCity={{City}}%2C+{{Country}}+-+%28{{airport_code}}%29&startDay={{depart_day}}&startMonth={{depart_month}}&endDay={{return_day}}&endMonth={{return_month}}&noOfTickets=1"/>
-                                Hotwire
-                            </label>
-                            <label class="pointer">
-                                <input type="checkbox" value="http://ad.doubleclick.net/clk;212653754;34066827;k?http://www.orbitz.com/App/ValidateFlightSearch?slice1:departCity={{nearest_airport.Code}}&slice1:arriveCity={{airport_code}}&slice1:month={{depart_month}}+{{depart_year}}&slice1:day={{depart_day}}&slice2:month={{return_month}}+{{return_year}}&slice2:day={{return_day}}&adults=1&gcid=C11287x773&WT.mc_id=o_mb_aircomp&WT.mc_ev=click&DCSext.mc_kw="/>
-                                Orbitz
-                            </label>
-                            <label class="pointer">
-                                <input type="checkbox" value="http://clkuk.tradedoubler.com/click?p=123905&a=1707266&g=18530370&url=http://www.ebookers.com/partner/offsitesearch?type=air&triptype=roundtrip&origin={{nearest_airport.City}}%2C%20{{nearest_airport.Country}}%20-%20%28{{nearest_airport.Code}}%29&dest={{City}}%2C%20{{Country}}%20-%20%28{{airport_code}}%29&adults=1&departdate={{depart_year}}-{{depart_month}}-{{depart_day}}&returndate={{return_year}}-{{return_month}}-{{return_day}}&departspan=Anytime&returnspan=Anytime&gcid=16622"/>
-                                Ebookers
-                            </label>
-                            <label class="pointer">
-                                <input type="checkbox" value="http://www.expedia.com/pubspec/scripts/eap.asp?GOTO=EXPFLTWIZ&load=1&TripType=Roundtrip&FrAirport={{nearest_airport.City}}%2C%20{{nearest_airport.Country}}%20%28{{nearest_airport.Code}}%29&ToAirport={{City}}%2C%20{{Country}}%20%28{{airport_code}}%29&FromDate={{depart_month}}/{{depart_day}}/{{depart_year}}&FromTime=362&ToDate={{return_month}}/{{return_day}}/{{return_year}}&ToTime=362&NumAdult=1&mdpcid=META.mobissimo.Meta.FLT.front_door_prechecked.december2009"/>
-                                Expedia
-                            </label>
-                        </div>
+<ul id="gallery-list" class="img_gallery column_3 t-column_2 m-column_1 full-width text-left">
+{{#gallery}}
+    <li class="mt30px">
+        {{#name}}
+        <span>{{City}}, {{Country}}</span>
+        {{/name}}
+        <a class="image responsive-image _16x9" href="javascript:;" data-href="{{protocol}}{{ip}}:{{port}}/{{path_original}}" title="{{City}}, {{Country}}">
+            <img src="{{protocol}}{{ip}}:{{port}}/{{path_thumnail}}" width="300" height="250" alt="{{name}}">
+            {{#Price}}
+            <span class="best_price fs24">${{Price}}</span>
+            {{/Price}}
+        </a>
+        <div class="image-info">
+            <div class="text-center fs14">
+                <b>from:</b> {{nearest_airport.City}}, {{nearest_airport.Country}} <b>to:</b> {{City}}, {{Country}}
+            </div>
+        </div>
+        <div class="full-info image-info hide">
+            <div class="text-center fs14">
+                <b>from:</b> {{nearest_airport.City}}, {{nearest_airport.Country}} ({{nearest_airport.Code}}) <b>to:</b> {{City}}, {{Country}} ({{Dest}})
+            </div>
+            <div class="compare clearfix">
+                <hr class="mt5px mb5px">
+                <div class="{{#Price}}grid_7 alpha{{/Price}}{{^Price}}grid_12{{/Price}} mb10px">
+                    <em class="mb5px">Compare to:</em>
+                    <div class="column_4 t-column_4 m-column_2 full-width">
+                        <label class="pointer">
+                            <input type="checkbox" value="http://www.hotwire.com/air/search-options.jsp?sid=S235&bid=B295416&inputId=index&&origCity={{nearest_airport.City}}%2C+v+-+%28{{nearest_airport.Code}}%29&destinationCity={{City}}%2C+{{Country}}+-+%28{{airport_code}}%29&startDay={{depart_day}}&startMonth={{depart_month}}&endDay={{return_day}}&endMonth={{return_month}}&noOfTickets=1"/>
+                            Hotwire
+                        </label>
+                        <label class="pointer">
+                            <input type="checkbox" value="http://ad.doubleclick.net/clk;212653754;34066827;k?http://www.orbitz.com/App/ValidateFlightSearch?slice1:departCity={{nearest_airport.Code}}&slice1:arriveCity={{airport_code}}&slice1:month={{depart_month}}+{{depart_year}}&slice1:day={{depart_day}}&slice2:month={{return_month}}+{{return_year}}&slice2:day={{return_day}}&adults=1&gcid=C11287x773&WT.mc_id=o_mb_aircomp&WT.mc_ev=click&DCSext.mc_kw="/>
+                            Orbitz
+                        </label>
+                        <label class="pointer">
+                            <input type="checkbox" value="http://clkuk.tradedoubler.com/click?p=123905&a=1707266&g=18530370&url=http://www.ebookers.com/partner/offsitesearch?type=air&triptype=roundtrip&origin={{nearest_airport.City}}%2C%20{{nearest_airport.Country}}%20-%20%28{{nearest_airport.Code}}%29&dest={{City}}%2C%20{{Country}}%20-%20%28{{airport_code}}%29&adults=1&departdate={{depart_year}}-{{depart_month}}-{{depart_day}}&returndate={{return_year}}-{{return_month}}-{{return_day}}&departspan=Anytime&returnspan=Anytime&gcid=16622"/>
+                            Ebookers
+                        </label>
+                        <label class="pointer">
+                            <input type="checkbox" value="http://www.expedia.com/pubspec/scripts/eap.asp?GOTO=EXPFLTWIZ&load=1&TripType=Roundtrip&FrAirport={{nearest_airport.City}}%2C%20{{nearest_airport.Country}}%20%28{{nearest_airport.Code}}%29&ToAirport={{City}}%2C%20{{Country}}%20%28{{airport_code}}%29&FromDate={{depart_month}}/{{depart_day}}/{{depart_year}}&FromTime=362&ToDate={{return_month}}/{{return_day}}/{{return_year}}&ToTime=362&NumAdult=1&mdpcid=META.mobissimo.Meta.FLT.front_door_prechecked.december2009"/>
+                            Expedia
+                        </label>
                     </div>
-                    {{#Price}}
-                    <div class="grid_5 omega text-right">
-                        <span>Last price found</span>
-                        <span class="price fs24 primary-bg block text-center mt5px">${{Price}}</span>
-                        <!--<a href="http://www.volissimo.com/search-result.html?QueryID={{QueryID}}" target="_blank" class="btn small">Compare</a>-->
-                    </div>
-                    {{/Price}}
                 </div>
-            </li>
-        {{/gallery}}
-        </ul>
-    </main>
-</section>
+                {{#Price}}
+                <div class="grid_5 omega">
+                    <em>Last price found</em>
+                    <a class="btn price fs24 block mt5px lh-normal" href="http://www.volissimo.com/search-result-pan.html?QueryID={{QueryID}}" target="_blank">${{Price}}</a>
+                </div>
+                {{/Price}}
+            </div>
+        </div>
+    </li>
+{{/gallery}}
+</ul>

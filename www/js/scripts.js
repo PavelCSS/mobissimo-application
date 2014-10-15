@@ -1,19 +1,18 @@
-var backLinks = [], currentImage;
+var backLinks = [], currentImage, serverIp = 'http://50.18.116.252:5000/'; // http://54.165.42.238:5000/
 
-document.addEventListener('deviceready', onDeviceReady, false);
-document.addEventListener('backbutton', onBack, false);
-//$(function(){
-//    onDeviceReady();
-//});
+$(function(){
+    onDeviceReady();
+
+    if(device.type){
+        $('body').addClass('mobile')
+    }
+});
 
 function onDeviceReady(){
-//    if(device.type){
-        backLinks.push("parseTemplate(false, '_home.htm')");
-        parseTemplate(false, '_home.htm');
-        navigator.splashscreen.hide();
-//    }else{
-//        _pageHomeGallery();
-//    }
+    parseTemplate(false, '_home DESK.htm', function(code){
+        $('section').replaceWith(code);
+        _deskGallery();
+    });
 }
 
 function onBack(index){
@@ -24,71 +23,67 @@ function onBack(index){
 }
 
 $('body')
-    .on('tap', '.back', onBack)
-    .on('tap', '#gallery', _pageGallery)
-    .on('tap', '#upload-photo', _pageUpload)
-    .on('tap', '#gallery-list a.image', function(){
-        currentImage = {
-            'href'  : $(this).data('href'),
-            'title' : $(this).attr('title'),
-            'price' : $(this).parent().find('.best_price'),
-            'info'  : $(this).parent().find('table.image-info').html()
-        };
-        _pagePreview();
-//        window.open($(this).data('url'), '_system');
+    .on('singleTap', '#gallery-list a.image', function(e){
+        showImage($(this));
     })
-    .on('tap', '#take-photo', function(){
-        addPhoto(1, 1, function(url){
-            editPhoto(url);
-        });
+    .on('singleTap', '#page-preview img', function(e){
+        $('#page-preview').toggleClass('imgShow');
     })
-    .on('tap', '#select-photo', function(){
-        addPhoto(1, 0, function(url){
-            editPhoto(url);
-        });
+    .on('singleTap', '.btn-image.prev', swipeRight)
+    .on('singleTap', '.btn-image.next', swipeLeft)
+    .on('swipeLeft', '#page-preview main', swipeLeft)
+    .on('swipeRight', '#page-preview main', swipeRight)
+    .on('change', '.image-info input[type="checkbox"]', function(e){
+        if($(this).is(':checked')){
+            window.open($(this).val(), '_blank');
+        }
     })
-    .on('tap', '#save-photo', function(){
-        showLoading();
-        var title = $('input.title').val();
-        uploadPhoto(currentImage.href, title);
+    .on('change', '.location input[type="radio"]', function(e){
+        $('#gallery-list').html('<div class="mt30px text-center">Loading...</div>');
+        _deskGalleryList($(this).attr('id'));
     })
-    .on('tap', '#page-preview', function(){
-        $(this).toggleClass('imgShow');
+    .on('change', '[name="upload"]', function(){
+        var nameFile = $(this).val();
+        if(nameFile.lastIndexOf('/') > 0){
+            nameFile = nameFile.substr(nameFile.lastIndexOf('/')+1);
+        }else if(nameFile.lastIndexOf('\\') > 0){
+            nameFile = nameFile.substr(nameFile.lastIndexOf('\\')+1);
+        }
+        $('.name-file').text('[ ' + nameFile + ' ]');
+        $('.upload-block, .choose-block').toggle();
     });
 
-function editPhoto(url){
-    var image = document.getElementById('preview');
-    image.src = url;
+var liActive;
+function swipeLeft(e){
+    if(liActive.next().length){
+        liActive = liActive.next();
+        showImage(liActive.find('a.image'));
+    }
+}
+function swipeRight(e){
+    if(liActive.prev().length){
+        liActive = liActive.prev();
+        showImage(liActive.find('a.image'));
+    }
+}
 
+function showImage(element){
+    var $this = (typeof element === 'undefined') ? $(this) : element;
     currentImage = {
-        'href'  : url,
-        'title' : '',
-        'info'  : ''
+        'href'  : $this.data('href'),
+        'title' : $this.attr('title'),
+        'price' : $this.parent().find('.price'),
+        'info'  : $this.parent().find('.image-info.full-info').html()
     };
-
-    $('footer').html(
-//        '<input type="text" class="title" placeholder="Please enter name photo">' +
-        '<div class="column_2 t-column_2 m-column_2 mt10px">' +
-            '<button id="edit-photo" class="back btn outline-bg"><i class="icon-cancel icon24"></i> Cancel</button>'+
-            '<button id="save-photo" class="btn outline"><i class="icon-cd icon24"></i> Save</button>' +
-        '</div>'
-    );
+    liActive = $this.closest('li');
+    liActive.addClass('active');
+    _pagePreview();
+    //        window.open($(this).data('url'), '_system');
 }
 
-function _pageGallery(){
+function _deskGallery(code){
+    code = (typeof code == 'undefined') ? '' : code;
     showLoading();
-    backLinks.push("_pageGallery()");
-    var gallery_data = {
-        'page-name' : 'gallery',
-        'header'    : {
-            'class' : 'fixed',
-            'code' : '<button class="back btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> Mobbisimo gallery</button>'
-        },
-        'main'      : {
-            'class' : 'mh'
-        },
-        'footer'    : false
-    };
 
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
 
@@ -96,110 +91,53 @@ function _pageGallery(){
         var latitude = position.coords.latitude,
             longitude = position.coords.longitude;
 
-        parseTemplate(gallery_data, '_page.htm', function(code){
-            $('section').replaceWith(code);
-            $.ajax({
-                dataType : 'jsonp',
-                data     : {
-                    'lat' : latitude,
-                    'lng' : longitude
-                },
-                url      : 'http://54.165.42.238:5000/getbestpricelist',
-                success  : function(gall_list){
-                    showLoading();
-                    parseTemplate(gall_list, '_gallery list.htm', function(html){
-                        $('main').html(html);
-                        hideLoading();
-                    });
-                },
-                error    : function(data){
-                    console.log(data)
-                }
+        _deskGalleryList(code, latitude, longitude)
+    }
+
+    function onError(error) {
+        alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+    }
+}
+
+function _deskGalleryList(code, latitude, longitude){
+    code = (typeof code == 'undefined') ? '' : code;
+    latitude = (typeof latitude == 'undefined') ? '' : latitude;
+    longitude = (typeof longitude == 'undefined') ? '' : longitude;
+
+    $.ajax({
+        dataType : 'jsonp',
+        data     : {
+            'code' : code,
+            'lat'  : latitude,
+            'lng'  : longitude
+        },
+        url      : serverIp + 'getbestpricelist',
+        success  : function(gall_list){
+            var d = new Date();
+                d.setDate(d.getDate() + 3);
+            var month = d.getMonth() + 1;
+            var day = d.getDate();
+            var year = d.getFullYear();
+                d.setDate(d.getDate() + 7);
+            var r_month = d.getMonth() + 1;
+            var r_day = d.getDate();
+            var r_year = d.getFullYear();
+            gall_list['depart_month'] = month;
+            gall_list['depart_day'] = day;
+            gall_list['depart_year'] = year;
+            gall_list['return_month'] = r_month;
+            gall_list['return_day'] = r_day;
+            gall_list['return_year'] = r_year;
+            parseTemplate(gall_list, '_gallery list DESK.htm', function(code){
+                $('#gallery-list').replaceWith(code)
             });
-        });
-    }
-
-    function onError(error) {
-        alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
-    }
-}
-
-function _pageHomeGallery(){
-    showLoading();
-
-    navigator.geolocation.getCurrentPosition(onSuccess, onError);
-
-    function onSuccess(position) {
-        var latitude = position.coords.latitude,
-            longitude = position.coords.longitude;
-
-        $.ajax({
-            dataType : 'jsonp',
-            data     : {
-                'lat' : latitude,
-                'lng' : longitude
-            },
-            url      : 'http://54.165.42.238:5000/getbestpricelist',
-            success  : function(gall_list){
-                var d = new Date();
-                    d.setDate(d.getDate() + 3);
-                var month = d.getMonth() + 1;
-                var day = d.getDate();
-                var year = d.getFullYear();
-                    d.setDate(d.getDate() + 7);
-                var r_month = d.getMonth() + 1;
-                var r_day = d.getDate();
-                var r_year = d.getFullYear();
-                gall_list['depart_month'] = month;
-                gall_list['depart_day'] = day;
-                gall_list['depart_year'] = year;
-                gall_list['return_month'] = r_month;
-                gall_list['return_day'] = r_day;
-                gall_list['return_year'] = r_year;
-                parseTemplate(gall_list, '_gallery list DESK.htm');
-                hideLoading();
-            },
-            error    : function(data){
-                hideLoading();
-                console.log(data)
-            }
-        });
-
-        $('body').on('change', '.image-info input[type="checkbox"]', function(){
-            if($(this).is(':checked')){
-                window.open($(this).val(), '_blank');
-            }
-        });
-    }
-
-    function onError(error) {
-        alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
-    }
-}
-
-function _pageUpload(){
-    backLinks.push("_pageUpload()");
-    var upload_data = {
-        'page-name' : 'upload',
-        'header'    : {
-            'class' : 'fixed',
-            'code'  : '<button class="back btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> Add new image</button>'
+            hideLoading();
         },
-        'main'      :{
-            'class' : 'text-center mh',
-            'code'  : '<img id="preview" src="images/upload-image.png">'
-        },
-        'footer'    : {
-//            'class' : 'fixed text-center',
-            'class' : 'fixed text-center',
-            'code'  : '<div class="column_2 t-column_2 m-column_2">' +
-                          '<button id="take-photo" class="btn"><i class="icon-camera icon24"></i> Take photo</button>' +
-                          '<button id="select-photo" class="btn"><i class="icon-pictures3 icon24"></i> Select photo</button>' +
-                      '</div>'
-//            'code'  : '<form action="http://54.165.42.238:5000/upload" class="column_2 t-column_2 m-column_2" enctype="multipart/form-data" method="post"><input name="title" type="hidden"><label class="btn"><input class="hide" multiple="multiple" name="upload" type="file">Select photo</label><input class="btn" type="submit" value="Upload photo"></form>'
+        error    : function(data){
+            hideLoading();
+            console.log(data)
         }
-    };
-    parseTemplate(upload_data, '_page.htm');
+    });
 }
 
 function _pagePreview(){
@@ -208,42 +146,33 @@ function _pagePreview(){
     var image_data = {
         'page-name' : 'preview',
         'header'    : {
-            'class' : 'fixed',
+            'class' : 'fixed text-overflow',
             'code'  : '<button class="hide btn inherit fl-left"><i class="icon-arrow-left6 icon24"></i> '+currentImage.title+'</button>'
         },
         'main'      : {
             'class' : 'container',
-            'code' : '<img src="'+currentImage.href+'" alt="'+currentImage.title+'">'
+            'code' : '<img src="'+currentImage.href+'" alt="'+currentImage.title+'">' +
+                     '<span class="btn-image prev icon-arrow-left6"></span>' +
+                     '<span class="btn-image next icon-arrow-right6"></span>'
         },
         'footer'    : {
             'class' : 'fixed info',
             'code'  : function(){
-                if(currentImage.info && currentImage.price.length){
-                    return '<table>'+currentImage.info+'</table>'
-                }
+                return '<div class="image-info clearfix p20px">'+currentImage.info+'</div>'
             }
         }
     };
     parseTemplate(image_data, '_page.htm', function(html){
-        $('section').append(html);
+        if($('#page-preview').length){
+            $('#page-preview').replaceWith(html);
+        }else{
+            $('section').append(html);
+        }
     });
 
-    $('body').on('tap', 'button.hide', function(){
+    $('body').on('singleTap', 'button.hide', function(e){
         $('#page-preview').remove();
     });
 
     hideLoading();
-//    var oldDistance = 0;
-//    $('body').on('pinching', 'img', function(o) {
-//        var distance = oldDistance - (o.distance < 0 ? (o.distance * -1) : o.distance);
-//        oldDistance = distance;
-//        var width = o.currentTarget.clientWidth + o.distance;
-//        $(this).css({
-//            'width'  : width
-//        });
-//        console.log(o);
-//        console.log(o.currentTarget.clientWidth +',' +o.distance);
-//    }).on('pinch', 'img', function(o) {
-//        oldDistance = 0;
-//    });
 }

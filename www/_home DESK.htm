@@ -1,0 +1,40 @@
+<section id="home">
+    <header class="container pt30px pb20px mb20px">
+        <a href="index.html" class="grid_3 alpha text-center">
+            <img src="images/logo.svg" width="250"/>
+        </a>
+        <form id="upload-form" class="grid_9 omega text-right mt20px" action="http://50.18.116.252:5000/upload" enctype="multipart/form-data" method="post">
+            <input name="title" type="hidden">
+            <label class="choose-block btn small">
+                <input class="hide" name="upload" type="file">
+                Please choose file
+            </label>
+            <span class="upload-block hide">
+                <span class="name-file block mb5px"></span>
+                <button class="btn error icon icon-cancel">Cancel</button>
+                <button class="btn success" type="submit">Upload</button>
+            </span>
+        </form>
+    </header>
+    <main class="container text-center">
+        <div class="location btn-group">
+            <input type="radio" id="PAR" name="location">
+            <label class="btn small" for="PAR">Paris</label>
+            <input type="radio" id="LON" name="location">
+            <label class="btn small" for="LON">London</label>
+            <input type="radio" id="NYC" name="location">
+            <label class="btn small" for="NYC">New York</label>
+            <input type="radio" id="MIA" name="location">
+            <label class="btn small" for="MIA">Miami</label>
+            <input type="radio" id="LAX" name="location">
+            <label class="btn small" for="LAX">Los Angeles</label>
+            <input type="radio" id="SFO" name="location">
+            <label class="btn small" for="SFO">San Francisco</label>
+            <input type="radio" id="IST" name="location">
+            <label class="btn small" for="IST">Istanbul</label>
+        </div>
+        <ul id="gallery-list" class="img_gallery">
+            <div class="mt30px text-center">Loading...</div>
+        </ul>
+    </main>
+</section>

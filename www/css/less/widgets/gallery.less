@@ -4,11 +4,13 @@
     li{
         position   : relative;
         text-align : center;
+        overflow   : hidden;
     }
 
     .image{
-        display : block;
-        border  : @thumbnail-border-width solid @thumbnail-border-color;
+        display    : block;
+        background : @thumbnail-border-color;
+        border     : @thumbnail-border-width solid transparent;
 
         img{
             width : 100%;
@@ -30,6 +32,17 @@
             font-size : 12px;
         }
     }
+
+    .compare{
+        height   : 0;
+        overflow : hidden;
+    }
+
+//    li:hover{
+//        .compare{
+//            height : auto;
+//        }
+//    }
 
     .image_caption{
         position : absolute;

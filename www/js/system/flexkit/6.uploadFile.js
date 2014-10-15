@@ -13,7 +13,7 @@ function uploadPhoto(imageURI, name) {
 //    params.hashTags = hashTags;
 
     var ft = new FileTransfer();
-    ft.upload(imageURI, "http://54.165.42.238:5000/upload", successUpload, failUpload, options);
+    ft.upload(imageURI, encodeURI(serverIp+"upload"), successUpload, failUpload, options);
 }
 
 function successUpload(r) {

@@ -31,6 +31,10 @@ section{
 //==================================================
 header{
 
+    #home &{
+        border-bottom: 1px dashed fade(#fff, 15%);
+    }
+
     &.fixed{
         position    : fixed;
         top         : 0;
@@ -69,6 +73,12 @@ main{
         height   : 100%;
     }
 
+    &:hover{
+        .btn-image{
+            display : block;
+        }
+    }
+
     img{
         position   : absolute;
         left       : 0;
@@ -83,10 +93,52 @@ main{
         .box-shadow(3px 3px 15px #000);
     }
 
+    .btn-image{
+        position   : fixed;
+        top        : 0;
+        bottom     : 0;
+        width      : 50px;
+        z-index    : 500;
+        background : fade(#fff, 20%);
+        cursor     : pointer;
+        display    : none;
+
+        .mobile &{
+            display : none !important;
+        }
+
+        &.prev{
+            left : 0;
+        }
+
+        &.next{
+            right : 0;
+        }
+
+        &:before{
+            font-size : 32px;
+            width     : 32px;
+            height    : 32px;
+            position  : absolute;
+            top       : 0;
+            bottom    : 0;
+            left      : 0;
+            right     : 0;
+            margin    : auto;
+        }
+
+    }
+
     &.imgShow{
         header, footer{
             display : none;
         }
+    }
+}
+
+@media only screen and (max-width : @responsive-size-tablet){
+    #upload-form{
+        text-align : center;
     }
 }
 
@@ -115,7 +167,7 @@ footer{
         left       : 0;
         right      : 0;
         z-index    : 100 !important;
-//        min-height : @footer-height;
+        //        min-height : @footer-height;
         background : @footer-bg;
         color      : @footer-color;
     }

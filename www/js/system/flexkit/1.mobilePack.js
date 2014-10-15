@@ -5,9 +5,9 @@ $('body').on('touchstart', function(e){
     });
 
 function showLoading(){
-    $('html').addClass('loading');
+//    $('html').addClass('loading');
 }
 
 function hideLoading(){
-    $('html').removeClass('loading');
+//    $('html').removeClass('loading');
 }
